@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+function tarfile {
+tar czvf $1.tar.gz $1
+}
+
+function untarfile {
+tar zxvf $1
+}
+
+function source_bashrc {
+source ~/.bashrc
+}
+
+function gtags_py {
+gtags --gtagslabel=pygments
+}
+
+function ln_in_this_dir {
+    faname_with_ext="${file_path##*/}"
+    ln -s /vagrant/dotfile/.bash_profile $1
+}
+
+
+function gs {
+ git status
+}
+
+

@@ -1,0 +1,485 @@
+○cent os min
+
+#sshログインが遅い対策
+# vi /etc/ssh/sshd_config
+GSSAPIAuthentication noのコメントを外し、
+GSSAPIAuthentication yesをコメント。
+# /etc/init.d/sshd restart
+
+# network設定
+vi /etc/sysconfig/network-scripts/ifcfg-eth0
+# これ必須
+ONBOOT="yes"　←　ネットワーク自動起動設定
+
+BOOTPROTO=static　←　IPアドレス固定設定
+IPADDR=192.168.1.30　←　サーバーのIPアドレス(例：192.168.1.30)を入力
+NETMASK=255.255.255.0　←　ネットマスク(例：255.255.255.0)を入力
+GATEWAY=192.168.1.1　←　ルーターのIPアドレス(例：192.168.1.1)を入力
+DNS1=192.168.1.1　←　ルーターのIPアドレス(例：192.168.1.1)を入力
+
+# eth1が起動しない場合
+sudo ifconfig eth1 up
+
+○シンボリックリンク
+ln -s /usr/local/bin bin
+
+
+ln -s /vagrant/dotfile/.bash_func .bash_func
+ln -s /vagrant/dotfile/.bash_profile .bash_profile
+ln -s /vagrant/dotfile/.bashrc .bashrc
+ln -s /vagrant/dotfile/.vimrc .vimrc
+ln -s /vagrant/dotfile/.vim .vim
+ln -s vagrant/dotfile/.editorconfig .editorconfig
+
+○window移動
+alt + space + M
+
+○ubuntuショートカット
+
+○apache
+sudo apt-get install apache2 -y
+# とりあえず停止
+sudo service apache2 stop
+
+○mysql
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server mysql-client libmysqlclient-dev
+# とりあえず停止
+sudo service mysql stop
+
+○mysql(cent)
+    if [ ! -f /etc/yum.repos.d/mysql-community.repo ]; then
+        sudo yum -y remove mysql*
+        sudo yum -y install http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
+        sudo sed -i -e "19c enabled=1" /etc/yum.repos.d/mysql-community.repo
+        sudo sed -i -e "27c enabled=0" /etc/yum.repos.d/mysql-community.repo
+        sudo yum -y install mysql-community-server
+    else
+        echo 'skip mysql install'
+    fi
+    sudo service mysql start 
+
+
+○tmux設定
+クリップボードツール
+sudo apt-get install xsel -y
+
+
+○ruby
+git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+source ~/.bash_profile
+
+
+git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+$ rbenv install --version
+ruby-build 20140702-16-g85369d2
+
+rbenv install 1.8.6-p420
+
+sudo apt-get install autoconf -y
+
+# インストール
+rbenv install 2.3.0-dev
+
+# 切り替え
+rbenv global 2.3.0-dev
+
+
+# vim設定
+# javaがいる
+yum search jdk
+# centos
+sudo yum install java-1.8.0-openjdk-devel -y
+
+sudo apt-get install openjdk-8-jdk -y
+wget http://cx4a.org/pub/rsense/rsense-0.3.tar.bz2
+bzip2 -dc rsense-0.3.tar.bz2 | tar xvf -
+sudo cp -r rsense-0.3 /usr/local/lib
+sudo chmod +x /usr/local/lib/rsense-0.3/bin/rsense
+
+
+" sudoつけない
+gem install rsense
+
+gem install rubocop refe2
+gem install rcodetools
+
+NeoBundle 'tpope/vim-rails'
+NeoBundle 'basyura/unite-rails'
+NeoBundle     'vim-ruby/vim-ruby'
+
+NeoBundle 'osyo-manga/vim-monster'
+
+
+" Use neocomplete.vim
+let g:neocomplete#sources#omni#input_patterns = {
+\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+\}
+
+" Set async completion.
+let g:monster#completion#rcodetools#backend = "async_rct_complete"
+
+" Use neocomplete.vim
+let g:neocomplete#sources#omni#input_patterns = {
+\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+\}
+
+
+○python
+
+sudo apt-get install python-dev -y
+
+sudo chmod -R 0775 /usr/local
+sudo chgrp -R bpbook /usr/local
+
+# distribute_setupはいまはないみたい
+curl -O http://python-distribute.org/distribute_setup.py
+sudo python distribute_setup.py
+
+sudo apt-get install python-setuptools -y
+sudo easy_install pip
+sudo pip install virtualenv
+
+
+
+git clone https://github.com/yyuu/pyenv.git ~/.pyenv
+
+echo 'export PYENV_ROOT=$HOME/.pyenv' >> ~/.bash_profile
+echo 'PATH=$PYENV_ROOT/bin:$PATH' >> ~/.bash_profile
+echo 'eval "$(pyenv init -)"' >> ~/.bash_profile
+source ~/.bash_profile
+
+pyenv install 2.7.11
+pyenv global 2.7.11
+# システムに戻す
+pyenv shell system
+
+# virtualenv
+# sudoの方は使わない
+# sudo pip install virtualenv --upgrade
+
+git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bash_profile
+
+
+○セキュリティ
+ctl + alt + delte再起動の無効化
+sudo vi /etc/init/control-alt-delete.conf
+
+
+○terminl
+曖昧文字幅を全角に変更
+これダメだと ○aaaの文字幅がおかしい
+
+デスクトップとかを英語化
+LANG=C xdg-user-dirs-gtk-update
+
+tab切り替え
+ctl + pageUp
+
+○php
+# 通常
+sudo apt-get -y install php5 php5-cli php5-gd php5-fpm php5-mysql
+
+cd $HOME
+mkdir -p repos/git
+cd repos/git
+git clone https://github.com/CHH/phpenv.git
+cd phpenv/bin
+./phpenv-install.sh
+
+Installing phpenv in $HOME/.phpenv
+Cloning into '$HOME/.phpenv'...
+remote: Counting objects: 2162, done.
+remote: Total 2162 (delta 0), reused 0 (delta 0), pack-reused 2162
+Receiving objects: 100% (2162/2162), 374.21 KiB | 114.00 KiB/s, done.
+Resolving deltas: 100% (1335/1335), done.
+Checking connectivity... done.
+Success.
+
+・bashrcの編集
+export PATH="$HOME/.phpenv/bin:$PATH"
+eval "$(phpenv init -)"
+
+・php-buildをインストールする
+git clone https://github.com/CHH/php-build.git ~/.phpenv/plugins/php-build
+
+
+・インストール可能なPHPのバージョンの確認
+$ phpenv install --list
+
+・libmcrypt-devのインストール
+sudo apt-get install libcurl4-openssl-dev libpng3 libjpeg-dev re2c libxml2 libxml2-dev libssl-dev libtidy-dev libxslt1-dev libmcrypt-dev  libreadline-dev libpng-dev libsslcommon2-dev build-essential apache2-prefork-dev libjpeg8 libjpeg8-dev  libpng12-dev zlib1g-dev -y
+
+
+
+・bison2しか使えない
+wget http://launchpadlibrarian.net/140087283/libbison-dev_2.7.1.dfsg-1_amd64.deb
+wget http://launchpadlibrarian.net/140087282/bison_2.7.1.dfsg-1_amd64.deb
+sudo dpkg -i libbison-dev_2.7.1.dfsg-1_amd64.deb
+sudo dpkg -i bison_2.7.1.dfsg-1_amd64.deb
+
+
+phpenv install 5.6.14
+
+# 切り替え
+phpenv global 5.6.14
+
+# fuelphpインストール
+curl get.fuelphp.com/oil | sh
+
+
+# Phalconソースの取得とインストール
+git からソースをダウンロードするので、事前にgitのインストールが必要
+git clone git://github.com/phalcon/cphalcon.git
+cd cphalcon/build
+sudo ./install
+
+・cakephp zip dwonload
+ctags -R --languages=PHP --langmap=PHP:.php.inc --php-types=c+f+d 
+ctags -R --regex-php="/^[ \t]*const[ \t]+([a-z0-9_]+)/\1/d/i"
+
+NeoBundle 'vim-scripts/gtags.vim'
+
+参考
+Ubuntu に phpenv を入れて複数バージョンのPHP管理しようと ..
+http://qiita.com/qurage/items/70f3341a18a5172288f7
+
+○php構文チェック
+mkdir -p $HOME/.vim/phpCsFixer/
+cd /tmp
+wget http://cs.sensiolabs.org/get/php-cs-fixer.phar -O $HOME/.vim/phpCsFixer/php-cs-fixer
+chmod a+x $HOME/.vim/phpCsFixer/php-cs-fixer
+
+
+" vim-php-cs-fixer {{{
+NeoBundleLazy 'stephpy/vim-php-cs-fixer', {'functions': 'PhpCsFixerFixFile'}
+nnoremap <Leader>php :<C-u>call<Space>PhpCsFixerFixFile()<CR>
+    let s:hooks = neobundle#get_hooks('vim-php-cs-fixer')
+    function! s:hooks.on_source(bundle) abort "{{{
+    let g:php_cs_fixer_config                 = 'default'
+    let g:php_cs_fixer_dry_run                = 0
+    let g:php_cs_fixer_enable_default_mapping = 0
+    let g:php_cs_fixer_fixers_list            = 'align_equals,align_double_arrow'
+    let g:php_cs_fixer_level                  = 'symfony'
+    let g:php_cs_fixer_php_path               = 'php'
+    let g:php_cs_fixer_verbose                = 0
+    endfunction "}}}
+"}}}
+
+cd 
+mkdir bin
+cd bin
+curl -LO https://github.com/squizlabs/PHP_CodeSniffer/releases/download/2.5.1/phpcs.phar
+
+curl -LO https://github.com/squizlabs/PHP_CodeSniffer/releases/download/2.5.1/phpcbf.phar
+
+chmod +x phpcbf.phar
+chmod +x phpcs.phar
+
+mv phpcbf.phar phpcbf
+mv phpcs.phar phpcs
+
+echo 'PATH=$HOME/bin:$PATH' >> ~/.bash_profile
+
+○phpStyleList
+wget http://jaist.dl.sourceforge.net/project/phpstylist/phpstylist/1.0/phpStylist-1.0.zip
+ unzip phpStylist-1.0.zip
+
+○bash補完
+sudo apt-get install bash-completion -y
+
+○ctag
+sudo apt-get install ctags -y
+
+参考
+Exuberant Ctags で飛べないファイルを飛べるようにする - BoBlog
+https://www.google.co.jp/url?sa=t&rct=j&q=&esrc=s&source=web&cd=16&ved=0CD8QFjAFOApqFQoTCLO595TUycgCFWXnpgodrk4P_w&url=http%3A%2F%2Fbobpp.hateblo.jp%2Fentry%2F2014%2F02%2F28%2F113443&usg=AFQjCNGPYUFep_wVPV6M6HWpEVyXo-KYYg&bvm=bv.105454873,d.dGY&cad=rja
+
+○neobundleインストール
+mkdir -p ~/.vim/bundle
+
+
+sudo apt-get install haskell-platform -y
+
+○go言語
+
+sudo apt-get install golang -y
+sudo apt-get install gcc libc6-dev -y
+
+
+
+.vim/after/ftplugin/go.vim
+
+set noexpandtab
+set tabstop=4
+set shiftwidth=4
+
+
+
+
+
+
+
+
+GOPATHの設定
+mkdir gopath
+export GOPATH=$HOME/gopath
+export PATH=$PATH:$HOME/go/bin:$GOPATH/bin
+
+参考サイト
+http://qiita.com/koara-local/items/6c886eccfb459159c431
+・.vimrcの追加
+NeoBundle 'fatih/vim-go'
+・依存ライブラリのインストール
+:GoInstallBinaries
+
+参考サイト
+http://mattn.kaoriya.net/software/vim/20130531000559.htm
+コンパイルツール
+
+perl
+https://www.seeds-std.co.jp/seedsblog/611.html
+sudo apt-get install curl -y
+curl -kL http://install.perlbrew.pl | bash
+
+.bashrcに追記
+source ~/perl5/perlbrew/etc/bashrc
+インストールされたperl一覧
+perlbrew init #これ打たないとabailableできない 
+perlbrew available
+# 選択してインストール
+perlbrew install perl-5.23.3
+
+# インストールしたperlのチェック
+perlbrew list
+
+# 有効なperlの切り替え
+perlbrew switch perl-5.23.3
+
+# cpam
+# curl -L http://cpanmin.us/ | perl - App::cpanminus
+
+perlbrew install-cpanm
+
+
+
+○perlbrewをcronで実行
+env.sh
+
+#!/bin/sh
+export HOME=/home/vagrant
+source ~/perl5/perlbrew/etc/bashrc
+perlbrew use perl-5.16.2
+
+exec "$@"
+
+そして、crontabの設定で次のような感じで記述します。
+
+* * * * * /home/uchiyama/env.sh perl /home/uchiyama/hoge.pl > /tmp/hoge 2>&1
+
+以上のようにに設定することで、perlbrewでインストールされたPerlが使われるようになります。
+普通に実行してしまうと、システムに標準で入っているPerlの方で実行されてしまうので注意して下さい。
+
+
+
+○クリップボードのあるvim
+sudo apt-get install vim-gnome -y 
+
+○python
+sudo apt-get install libsqlite3-dev -y
+sudo apt-get install libreadline6-dev
+sudo apt-get install libgdbm-dev -y
+sudo apt-get install zlib1g -y
+sudo apt-get install bzip2 -y
+sudo apt-get install sqlite3 -y
+sudo apt-get install tk-dev -y
+sudo apt-get install zip -y
+
+○cobol
+sudo apt-get install open-cobol libcob1-dev libcob1 -y
+
+○go 日本語grep
+go get github.com/mattn/jvgrhp
+
+○gtags
+sudo apt-get install global -y
+
+○git遅い 
+
+sudo vim /etc/resolv.conf
+options single-request-reopen
+
+○vagrant plugins
+1) sahara
+
+サンドボックスモードを有効にするプラグインです。サンドボックスモード内で実行した操作はロールバック機能で実行前の状態に戻すことができます。実行した操作を確定したい場合はコミットを実行します。Chefのレシピをいろいろ試したい場合などに便利に使えます。
+インストール方法
+
+$ vagrant plugin install sahara
+# sandboxモード実行
+$ vagrant sandbox on
+
+# ロールバック
+$ vagrant sandbox rollback
+
+# コミット
+$ vagrant sandbox commit
+
+# sandboxモード終了(コミットしていない変更は削除)
+$ vagrant sandbox off
+
+# sandboxのステータス確認
+$ vagrant sandbox status
+
+2) vagrant-cachier
+
+    fgrehm/vagrant-cachier ・ GitHub
+
+yumやapt-getなどパッケージ管理システムのパッケージをローカルにキャッシュすることでプロヴィジョニングの実行を高速化するプラグインです。仮想端末を頻繁にスクラップ・ビルドする場合は時間の節約になります。
+
+# Vagrantfile
+Vagrant.configure("2") do |config|
+  config.vm.box = 'your-box'
+
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
+  end
+
+end
+
+3)vagrant-global-status
+1.6.5から入っている
+    fgrehm/vagrant-global-status ・ GitHub
+
+ホスト端末内のすべての仮想端末の情報をまとめて一覧表示してくれるプラグインです。気がつくと仮想端末があちらこちらに散在しているという状況を防ぐことができます。地味にとても便利です。
+インストール方法
+
+$ vagrant plugin install vagrant-global-status
+
+操作方法
+
+$ vagrant global-status --all
+
+
+
+
+4)vagrant-omnibus
+
+    schisamo/vagrant-omnibus ・ GitHub
+
+仮想端末のChefのインストール状況を確認して、必要があれば自動的にインストールしてくれるプラグインです。手動でChefをインストールする手間から解放されます。
+インストール方法
+
+$ vagrant plugin install vagrant-omnibus
+
+
+5)vagrant-vbguest
+
+    dotless-de/vagrant-vbguest ・ GitHub
+
+仮想端末がVirtualboxの場合、仮想端末のVirtualbox-guest-addtionのインストール状況を確認して、必要があれば自動的にインストールしてくれるプラグインです。手動でGuest addtionをインストールする手間から解放されます。
+インストール方法
+
+$ vagrant plugin install vagrant-vbguest

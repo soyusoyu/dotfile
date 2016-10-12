@@ -1,0 +1,133 @@
+= ○cygwin
+[2016-03-09 02:22]
+
+○cygwin
+# apt-cyg 導入
+[2016-03-09 02:21]
+# apt-cyg 導入
+mkdir bin
+cd bin
+wget https://raw.githubusercontent.com/transcode-open/apt-cyg/master/apt-cyg
+chmod +x apt-cyg
+mv apt-cyg /usr/local/bin/
+apt-cyg -m ftp://ftp.iij.ad.jp/pub/cygwin/ update
+
+apt-cyg install git
+apt-cyg install gvim 
+apt-cyg install zip unzip
+apt-cyg install openssh
+apt-cyg install make
+apt-cyg install curl
+apt-cyg install gcc-core
+apt-cyg install gcc-g++
+apt-cyg install python
+apt-cyg install python-setuptools
+easy_install-2.7 pip
+pip2.7 install ansible
+apt-cyg install python-paramiko
+
+apt-cyg install python-crypto
+apt-cyg install libyaml-devel
+apt-cyg install gcc-g++
+# エラー時は下記実行
+# pip2.7 install --upgrade setuptools
+apt-cyg install lua
+apt-cyg remove gvim
+apt-cyg install gvim 
+apt-cyg install mercurial
+apt-cyg install apache2
+apt-cyg install php
+apt-cyg install libxml2-devel
+
+# 環境ごとに設定
+ln -s $home/work/vagrant/bento_cent65/dotfile/.bash_func .bash_func
+ln -s $home/work/vagrant/bento_cent65/dotfile/.bash_profile .bash_profile
+ln -s $home/work/vagrant/bento_cent65/dotfile/.bashrc .bashrc
+ln -s $home/work/vagrant/bento_cent65/dotfile/.vimrc .vimrc
+ln -s $home/work/vagrant/bento_cent65/dotfile/.vim .vim
+ln -s $home/work/vagrant/bento_cent65/dotfile/.editorconfig .editorconfig
+
+vagrantへ接続
+ssh -p2222 vagrant@127.0.0.1
+
+# cygwin_php
+cd $HOME
+mkdir -p repos/git
+cd repos/git
+git clone https://github.com/CHH/phpenv.git
+cd phpenv/bin
+./phpenv-install.sh
+git clone https://github.com/CHH/php-build.git ~/.phpenv/plugins/php-build
+
+
+ mkdir /etc/ansible
+chmod 755 /etc/ansible
+echo '192.168.33.10' > /etc/ansible/hosts 
+
+
+○cygwin vimビルド
+$ cd ~/tmp/
+$ hg clone https://vim.googlecode.com/hg/ vim
+$ cd vim/src/
+$ ./configure  --prefix=$HOME/usr/local/stow/vim-7.4  --enable-multibyte  --enable-luainterp=yes  --enable-perlinterp=no --enable-pythoninterp=yes --enable-python3interp=yes --enable-tclinterp --enable-rubyinterp=yes
+$ make && make install
+$ cd ~/usr/local/stow
+$ stow vim-7.4
+
+○minnty
+・.minttyrc
+BoldAsFont=no
+Locale=ja_JP
+Charset=UTF-8
+
+・Homeを作成して"C:\Users\<ユーザ名>"を設定
+
+・minttyのインストール
+$ mingw-get update
+$ mingw-get install msys-mintty
+$ mingw-get install msys-openssh
+
+
+○Nyagos 
+https://github.com/zetamatta/nyagos/releases
+
+
+○ConEmu
+http://www.fosshub.com/ConEmu.html
+
+
+左側のツリーから "Main" をクリックし、以下のように設定します。
+# fontの設定
+    Main console font: 好きな日本語フォントを設定
+    Monospace: チェックを外す
+        このチェックを外さないと日本語のカーソルがズレます
+    Anti-aliasing: "Clear Type" にチェック
+
+
+# nyagosの設定
+    "Startup > Tasks" をクリック。
+    "+" をクリック。
+    グループ名に "nyagos" 、コマンド入力欄に c:\app\nyagos\nyagos.exe を指定。
+    "Up" を連打してタスクリストの一番上に並べる。
+    ここまで終わったら、"Startup" をクリックし、"Specified named task" に {nyagos} を指定。
+
+○フォント
+Ricty Diminished
+Ricty_Diminished
+https://github.com/yascentur/RictyDiminished
+
+○vagrant秘密鍵生成
+ssh-keygen
+pass vagrant
+
+~/.ssh/config
+
+echo 'Host vagrant' > .ssh/config
+echo '  HostName 192.168.33.10' >> .ssh/config
+ssh-copy-id vagrant@vagrant
+# エージェント起動
+eval `ssh-agent`
+# フレーズ記憶
+ssh-add .ssh/id_rsa
+ansible all -a "cat /home/vagrant/.bash_func" -u vagrant
+
