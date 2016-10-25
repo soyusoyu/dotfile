@@ -40,6 +40,23 @@ NeoBundleLazy 'thinca/vim-quickrun'
 
 NeoBundleLazy 'https://github.com/thinca/vim-qfreplace'
 NeoBundle 'https://github.com/ctrlpvim/ctrlp.vim'
+
+
+let g:ctrlp_use_caching = 0
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor
+
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+else
+    let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+    let g:ctrlp_prompt_mappings = {
+                \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
+                \ }
+endif
+
+
+
+
 " 編集履歴管理
 "NeoBundle 'sjl/gundo.vim'
 
@@ -464,13 +481,13 @@ nmap F <Leader><Leader>F
 nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 
 " unite grepにhw(highway)を使う
-if executable('hw')
+if executable('ag')
 
-    set grepprg=hw\ --no-group\ --no-color
+    set grepprg=ag\ --nogroup\ --nocolor
     set grepformat=%f:%l:%m
 
-    let g:unite_source_grep_command = 'hw'
-    let g:unite_source_grep_default_opts = '--no-group --no-color'
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = '--nogroup --nocolor'
     let g:unite_source_grep_recursive_opt = ''
 endif
 
@@ -574,6 +591,22 @@ command! GrepProDir :call select_grep()
 
 " ctrl +space
 imap <Nul> <C-x><C-]>
+
+
+
+nnoremap <F3> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
+vnoremap <F3> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
+
+" vp doesn't replace paste buffer
+function! RestoreRegister()
+    let @" = s:restore_reg
+    return ''
+endfunction
+function! s:Repl()
+    let s:restore_reg = @"
+    return "p@=RestoreRegister()\<cr>"
+endfunction
+vmap <silent> <expr> p <sid>Repl()
 
 filetype plugin indent on
 syntax on
