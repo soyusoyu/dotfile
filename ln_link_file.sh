@@ -7,4 +7,5 @@ mv .bash_profile ./org_dot_files
 ln -sf ~/dotfile/.vimrc ~/.vimrc
 ln -sf ~/dotfile/.vim ~/.vim
 ln -sf ~/dotfile/.bash_profile ~/.bash_profile
+ln -sf ~/dotfile/.bash_func ~/.bash_func
 ln -sf ~/dotfile/.bashrc ~/.bashrc
