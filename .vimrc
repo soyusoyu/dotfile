@@ -55,7 +55,9 @@ else
 endif
 
 
-
+let g:ctrlp_map = ''
+let g:ctrlp_cmd = 'CtrlP'
+noremap :cp :CtrlP
 
 " 編集履歴管理
 "NeoBundle 'sjl/gundo.vim'
@@ -215,6 +217,26 @@ NeoBundleLazy 'othree/html5.vim.git'
 NeoBundleLazy 'hail2u/vim-css3-syntax'
 NeoBundleLazy 'hokaccha/vim-html5validator'
 NeoBundleLazy 'cakebaker/scss-syntax.vim'
+
+
+NeoBundle 'https://github.com/itchyny/lightline.vim'
+let g:lightline = {
+            \ 'colorscheme': 'wombat',
+            \ }
+
+
+NeoBundle 'LeafCage/yankround.vim'
+" yankround.vim {{{
+"" キーマップ
+nmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap <C-p> <Plug>(yankround-prev)
+nmap <C-n> <Plug>(yankround-next)
+"" 履歴取得数
+let g:yankround_max_history = 50
+""履歴一覧(kien/ctrlp.vim)
+nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
+" }}}
 
 " gtag
 " NeoBundle 'vim-scripts/gtags.vim'
@@ -607,6 +629,14 @@ function! s:Repl()
     return "p@=RestoreRegister()\<cr>"
 endfunction
 vmap <silent> <expr> p <sid>Repl()
+
+
+
+" vimdiffの色設定
+highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=22
+highlight DiffDelete cterm=bold ctermfg=10 ctermbg=52
+highlight DiffChange cterm=bold ctermfg=10 ctermbg=17
+highlight DiffText   cterm=bold ctermfg=10 ctermbg=21
 
 filetype plugin indent on
 syntax on
