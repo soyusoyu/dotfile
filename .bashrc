@@ -117,22 +117,13 @@ if ! shopt -oq posix; then
     . /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+  elif [ -f /usr/local/etc/bash_completion ]; then
+    . /usr/local/etc/bash_completion
   fi
 fi
 
 export GOPATH=$HOME/gopath
 export PATH=$PATH:$HOME/go/bin:$GOPATH/bin
-
-# perl
-if [ -f ~/perl5/perlbrew/etc/bashrc ]; then 
-  source ~/perl5/perlbrew/etc/bashrc
-fi
-
-# php
-if [ -d "$HOME/.phpenv" ]; then
-  export PATH="$HOME/.phpenv/bin:$PATH"
-  eval "$(phpenv init -)"
-fi
 
 # perl omini 
 export PATH=~/.vim/bin:$PATH

@@ -18,4 +18,14 @@ export PATH
 
 export XDG_CONFIG_HOME=$HOME/.config
 
-if which plenv > /dev/null; then eval "$(plenv init -)"; fi
+
+if [ -d $HOME/.anyenv ] ; then
+    export PATH="$HOME/.anyenv/bin:$PATH"
+    eval "$(anyenv init -)"
+    # tmux対応
+    for D in `\ls $HOME/.anyenv/envs`
+    do
+        export PATH="$HOME/.anyenv/envs/$D/shims:$PATH"
+    done
+fi
+

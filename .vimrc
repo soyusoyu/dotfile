@@ -8,8 +8,22 @@ if has('vim_starting')
         set rtp+=$HOME/.vim/bundle/neobundle.vim/
 endif
 
+""pip3 install --upgrade neovim
 call neobundle#begin(expand('~/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
+
+
+  if has('nvim')
+    NeoBundle 'Shougo/deoplete.nvim'
+    let g:deoplete#enable_at_startup = 1
+    NeoBundleLazy 'Shougo/deoplete-rct', {
+               \ 'autoload' : { 'filetypes' : 'ruby'  }
+               \ }
+
+  else
+    NeoBundle 'Shougo/neocomplete.vim'
+  endif
+
 
 " 以下のプラグインをバンドル
 NeoBundle 'Shougo/unite.vim'
@@ -30,8 +44,6 @@ NeoBundleLazy 'thinca/vim-ref'
 "NeoBundle 'petdance/vim-perl'
 "NeoBundle 'hotchpotch/perldoc-vim'
 
-" シンタックス系プラグインをバンドル
-NeoBundle 'Shougo/neocomplete.vim'
 "NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
@@ -62,25 +74,8 @@ noremap :cp :CtrlP
 " 編集履歴管理
 "NeoBundle 'sjl/gundo.vim'
 
-" tagsを利用したソースコード閲覧・移動補助機能 tagsファイルの自動生成
-" NeoBundle 'Source-Explorer-srcexpl.vim'
-" NERD_tree, taglist, srcexpl の統合
-" NeoBundle 'trinity.vim'
-" NeoBundle 'The-NERD-tree'
-"NeoBundle 'vtreeexplorer'
-"NeoBundle 'tpope/vim-fugitive'
-"NeoBundle 'taglist.vim'
-"NeoBundle 'grep.vim'
-
-" NeoBundle 'tsukkee/unite-help'
-"NeoBundle 'h1mesuke/unite-outline'
-"NeoBundle 'Shougo/unite-outline'
 
 NeoBundle 'tsukkee/unite-tag'
-"NeoBundle 'choplin/unite-vim_hacks'
-
-"NeoBundle 'https://github.com/vim-scripts/perl-support.vim'
-"NeoBundle 'https://github.com/vim-scripts/SrcExpl'
 
 NeoBundle 'https://github.com/tpope/vim-fugitive'
 NeoBundle 'https://github.com/gregsexton/gitv'
@@ -101,7 +96,6 @@ NeoBundle 'https://github.com/Lokaltog/vim-easymotion'
 NeoBundle 'majutsushi/tagbar'
 " NeoBundle 'https://github.com/dag/vim2hs'
 " NeoBundle 'https://github.com/eagletmt/ghcmod-vim'
-"NeoBundle 'https://github.com/pbrisbin/vim-syntax-shakespeare/tree/master/syntax'
 " NeoBundle 'https://github.com/eagletmt/neco-ghc'
 " NeoBundle 'https://github.com/eagletmt/unite-haddock'
 
@@ -160,23 +154,21 @@ NeoBundleLazy 'basyura/unite-rails'
 NeoBundleLazy 'vim-ruby/vim-ruby'
 
 NeoBundleLazy 'osyo-manga/vim-monster'
-" Use neocomplete.vim
 " Set async completion.
 let g:monster#completion#rcodetools#backend = "async_rct_complete"
 
-" Use neocomplete.vim
 let g:neocomplete#sources#omni#input_patterns = {
 \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
 \}
 
 " php 
-NeoBundle 'violetyk/neocomplete-php.vim'
-let g:neocomplete_php_locale = 'ja'
-NeoBundle 'vim-scripts/tagbar-phpctags', {
-  \   'build' : {
-  \     'others' : 'chmod +x bin/phpctags',
-  \   },
-  \ }
+" NeoBundle 'violetyk/neocomplete-php.vim'
+" let g:neocomplete_php_locale = 'ja'
+" NeoBundle 'vim-scripts/tagbar-phpctags', {
+"   \   'build' : {
+"   \     'others' : 'chmod +x bin/phpctags',
+"   \   },
+"   \ }
 
 NeoBundle 'violetyk/vim-phpclass'
 NeoBundle 'kana/vim-gf-user'
@@ -225,21 +217,24 @@ let g:lightline = {
             \ }
 
 
-NeoBundle 'LeafCage/yankround.vim'
+""NeoBundle 'LeafCage/yankround.vim'
 " yankround.vim {{{
 "" キーマップ
-nmap p <Plug>(yankround-p)
-nmap P <Plug>(yankround-P)
-nmap <C-p> <Plug>(yankround-prev)
-nmap <C-n> <Plug>(yankround-next)
+" nmap p <Plug>(yankround-p)
+" nmap P <Plug>(yankround-P)
+" nmap <C-p> <Plug>(yankround-prev)
+" nmap <C-n> <Plug>(yankround-next)
 "" 履歴取得数
-let g:yankround_max_history = 50
+""let g:yankround_max_history = 50
 ""履歴一覧(kien/ctrlp.vim)
-nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
+""nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
 " }}}
 
 " gtag
 " NeoBundle 'vim-scripts/gtags.vim'
+
+NeoBundle 'vim-scripts/BlockDiff'
+NeoBundle 'vim-perl/vim-perl'
 
 call neobundle#end()
 
@@ -318,8 +313,6 @@ set incsearch
 set hlsearch
 " コマンド、検索パターンを10000個まで履歴に残す
 set history=10000
-" xtermとscreen対応
-set ttymouse=xterm2
 " マウスモード有効
 set mouse=v
 " コマンドを画面最下部に表示する
@@ -376,11 +369,12 @@ endif
 " ?{pattern}の入力中は「?」をタイプすると自動で「\?」が 入力されるようになる
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
-if has('unnamedplus')
-   set clipboard& clipboard+=unnamedplus
-else
-   set clipboard& clipboard+=unnamed,autoselect
-endif
+set clipboard+=unnamedplus
+" if has('unnamedplus')
+"    set clipboard& clipboard+=unnamedplus
+" else
+"     set clipboard& clipboard+=unnamed,autoselect
+" endif
 "set clipboard=unnamedplus
 "表示行単位で行移動する
 nnoremap <silent> j gj
@@ -607,14 +601,11 @@ endfunction
 
 "}}}
 
-command! GrepProDir :call select_grep()
-
-
 
 " ctrl +space
 imap <Nul> <C-x><C-]>
 
-
+tnoremap <silent> <ESC> <C-\><C-n>
 
 nnoremap <F3> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 vnoremap <F3> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
@@ -629,7 +620,6 @@ function! s:Repl()
     return "p@=RestoreRegister()\<cr>"
 endfunction
 vmap <silent> <expr> p <sid>Repl()
-
 
 
 " vimdiffの色設定
