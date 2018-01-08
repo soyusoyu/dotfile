@@ -18,6 +18,12 @@ brew install the_silver_searcher
 
 brew install ctags
 
+brew install fzf
+# git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+# ~/.fzf/install
+
+brew cask install intellij-idea
+
 brew cask install docker
 source ~/.bashrc
 

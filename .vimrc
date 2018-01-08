@@ -8,7 +8,10 @@ if has('vim_starting')
         set rtp+=$HOME/.vim/bundle/neobundle.vim/
 endif
 
-""pip3 install --upgrade neovim
+"" pip3 install --upgrade neovim
+"" gem install neovim
+"  gem install rcodetools
+"  gem install fastri
 call neobundle#begin(expand('~/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
@@ -19,6 +22,18 @@ NeoBundleFetch 'Shougo/neobundle.vim'
     NeoBundleLazy 'Shougo/deoplete-rct', {
                \ 'autoload' : { 'filetypes' : 'ruby'  }
                \ }
+
+    NeoBundleLazy 'fishbullet/deoplete-ruby', {
+               \ 'autoload' : { 'filetypes' : 'ruby'  }
+               \ }
+
+    NeoBundleLazy 'osyo-manga/vim-monster', {
+               \ 'autoload' : { 'filetypes' : 'ruby'  }
+               \ }
+    let g:monster#completion#rcodetools#backend = "async_rct_complete"
+    let g:deoplete#sources#omni#input_patterns = {
+    \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+    \}
 
   else
     NeoBundle 'Shougo/neocomplete.vim'
@@ -153,13 +168,6 @@ NeoBundleLazy 'tpope/vim-rails'
 NeoBundleLazy 'basyura/unite-rails'
 NeoBundleLazy 'vim-ruby/vim-ruby'
 
-NeoBundleLazy 'osyo-manga/vim-monster'
-" Set async completion.
-let g:monster#completion#rcodetools#backend = "async_rct_complete"
-
-let g:neocomplete#sources#omni#input_patterns = {
-\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
-\}
 
 " php 
 " NeoBundle 'violetyk/neocomplete-php.vim'
@@ -603,7 +611,8 @@ endfunction
 
 
 " ctrl +space
-imap <Nul> <C-x><C-]>
+"" imap <Nul> <C-x><C-]>
+imap <C-Space> <C-x><C-]>
 
 tnoremap <silent> <ESC> <C-\><C-n>
 

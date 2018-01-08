@@ -7,7 +7,7 @@ fi
 
 # User specific environment and startup programs
 
-PATH=$PATH:$HOME/bin
+PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # PATH=/usr/local/Cellar/vim/8.0.0022/bin/:$PATH
 #
