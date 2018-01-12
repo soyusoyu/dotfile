@@ -19,21 +19,33 @@ NeoBundleFetch 'Shougo/neobundle.vim'
   if has('nvim')
     NeoBundle 'Shougo/deoplete.nvim'
     let g:deoplete#enable_at_startup = 1
-    NeoBundleLazy 'Shougo/deoplete-rct', {
-               \ 'autoload' : { 'filetypes' : 'ruby'  }
-               \ }
+    " gem install language_server
+    " npm install -g typescript-language-server
+    " npm install -g javascript-typescript-langserver
+    NeoBundle 'autozimu/LanguageClient-neovim'
+    let g:LanguageClient_serverCommands = {
+        \ 'ruby': ['language_server-ruby'],
+        \ }
+    nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+    nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+    nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+    let g:LanguageClient_autoStart = 1
 
-    NeoBundleLazy 'fishbullet/deoplete-ruby', {
-               \ 'autoload' : { 'filetypes' : 'ruby'  }
-               \ }
-
-    NeoBundleLazy 'osyo-manga/vim-monster', {
-               \ 'autoload' : { 'filetypes' : 'ruby'  }
-               \ }
-    let g:monster#completion#rcodetools#backend = "async_rct_complete"
-    let g:deoplete#sources#omni#input_patterns = {
-    \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
-    \}
+    " NeoBundleLazy 'Shougo/deoplete-rct', {
+    "            \ 'autoload' : { 'filetypes' : 'ruby'  }
+    "            \ }
+    "
+    " NeoBundleLazy 'fishbullet/deoplete-ruby', {
+    "            \ 'autoload' : { 'filetypes' : 'ruby'  }
+    "            \ }
+    "
+    " NeoBundleLazy 'osyo-manga/vim-monster', {
+    "            \ 'autoload' : { 'filetypes' : 'ruby'  }
+    "            \ }
+    " let g:monster#completion#rcodetools#backend = "async_rct_complete"
+    " let g:deoplete#sources#omni#input_patterns = {
+    " \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+    " \}
 
   else
     NeoBundle 'Shougo/neocomplete.vim'
@@ -44,9 +56,12 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/vimfiler'
-NeoBundle 'Shougo/vimproc'
+""NeoBundle 'Shougo/vimproc'
 NeoBundleLazy 'Shougo/vimshell'
-NeoBundle 'scrooloose/syntastic'
+""NeoBundle 'scrooloose/syntastic'
+" gem install
+NeoBundle 'w0rp/ale'
+
 NeoBundleLazy 'mattn/emmet-vim'
 "NeoBundle 'open-browser.vim'
 NeoBundle 'mattn/webapi-vim'
@@ -161,12 +176,18 @@ NeoBundleLazy 'vim-scripts/ruby-matchit', { "autoload" : {
 ""endif
 ""let g:neocomplete#force_omni_input_patterns.ruby =
          \ '[^. *\t]\.\w*\|\h\w*::'
-let g:syntastic_ruby_checkers = ['rubocop']
+""let g:syntastic_ruby_checkers = ['rubocop']
 
 
-NeoBundleLazy 'tpope/vim-rails'
-NeoBundleLazy 'basyura/unite-rails'
-NeoBundleLazy 'vim-ruby/vim-ruby'
+NeoBundleLazy 'tpope/vim-rails', {
+           \ 'autoload' : { 'filetypes' : 'ruby'  }
+           \ }
+NeoBundleLazy 'basyura/unite-rails', {
+           \ 'autoload' : { 'filetypes' : 'ruby'  }
+           \ }
+NeoBundleLazy 'vim-ruby/vim-ruby', {
+           \ 'autoload' : { 'filetypes' : 'ruby'  }
+           \ }
 
 
 " php 
@@ -206,8 +227,8 @@ nnoremap <Leader>php :<C-u>call<Space>PhpCsFixerFixFile()<CR>
 "}}}
 
 
-let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-let g:syntastic_php_phpcs_args='--standard=psr2'
+" let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+" let g:syntastic_php_phpcs_args='--standard=psr2'
 
 " outline
 NeoBundleLazy 'vim-voom/VOoM'
@@ -250,6 +271,7 @@ set t_Co=256
 set expandtab
 set tabstop=4
 set shiftwidth=4 "自動インデントでずれる幅
+
 " ファイラー関連
 let g:vimfiler_enable_auto_cd = 1
 let g:vimfiler_as_default_explorer = 1
@@ -433,8 +455,8 @@ let g:neocomplete#force_omni_input_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
 autocmd BufNewFile,BufRead *.psgi   set filetype=perl
 autocmd BufNewFile,BufRead *.t      set filetype=perl
 
-let g:syntastic_enable_perl_checker = 1
-let g:syntastic_perl_checkers = ['perl', 'perlcritic', 'podchecker']
+" let g:syntastic_enable_perl_checker = 1
+" let g:syntastic_perl_checkers = ['perl', 'perlcritic', 'podchecker']
 let g:neocomplete#dictionary_filetype_lists = { 'default'    : '', 'perl'       : $HOME . '/.vim/dict/perl.dict' }
 
 

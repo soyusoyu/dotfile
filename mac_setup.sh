@@ -4,6 +4,8 @@ brew install git
 
 brew install python3
 
+brew install bash-completion
+
 brew tap caskroom/cask
 
 brew cask install vimr
@@ -15,6 +17,9 @@ brew cask install google-chrome
 brew cask install visual-studio-code
 
 brew install the_silver_searcher
+
+brew install postgresql
+brew install mysql
 
 brew install ctags
 
@@ -44,8 +49,11 @@ RUBY_VER="2.4.3"
 NODE_VER="v8.9.4"
 PYTHON2_VER="2.7.14"
 PYTHON3_VER="3.6.4"
+
+ELIXIR_VER="1.5.3"
 ANYENV_HOME=$HOME/.anyenv
 ANYENV_ENV=$ANYENV_HOME/envs
+
 mkdir -p ${ANYENV_HOME}/plugins
 git clone https://github.com/znz/anyenv-update.git ${ANYENV_HOME}/plugins/anyenv-update
 
@@ -68,6 +76,24 @@ pyenv install ${PYTHON2_VER}
 pyenv install ${PYTHON3_VER}
 pyenv rehash
 
+
+anyenv install erlenv
+brew cask reinstall java
+brew install unixodbc wxmac fop
+brew install kerl
+# kerl list releases
+kerl build 20.2 20.2
+kerl install 20.2 ~/.anyenv/envs/erlenv/releases/20.2
+. /Users/soyu/.anyenv/envs/erlenv/releases/20.2/activate
+
+anyenv install exenv
+# exenv install -l
+exenv install ${ELIXIR_VER}
+exenv global ${ELIXIR_VER}
+exenv rehash
+
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+sh ./installer.sh ~/.vim/bundle
 
 #docker build ./ -t rails_sample
 #docker run -i -t --cap-add=SYS_PTRACE --security-opt="seccomp=unconfined" rails_sample /bin/bash
