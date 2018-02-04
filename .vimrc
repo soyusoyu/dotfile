@@ -1,87 +1,153 @@
-set nocompatible 
+
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
+endif
+
 filetype off
 filetype plugin indent off 
 
-set fileencodings=iso-2022-jp,euc-jp,utf-8,cp932
-" neobundleでプラグインを管理
-if has('vim_starting')
-        set rtp+=$HOME/.vim/bundle/neobundle.vim/
-endif
+set encoding=utf-8
+set fileencodings=iso-2022-jp,euc-jp,cp932,utf-8
+
+set runtimepath+=$HOME/.vim/bundle/repos/github.com/Shougo/dein.vim
+
+" let g:python_host_prog='$HOME/.anyenv/envs/pyenv/versions/2.7.14/bin/python2'
+" let g:python3_host_prog='$HOME/.anyenv/envs/pyenv/versions/3.6.4/bin/python3'
 
 "" pip3 install --upgrade neovim
 "" gem install neovim
 "  gem install rcodetools
 "  gem install fastri
-call neobundle#begin(expand('~/.vim/bundle'))
-NeoBundleFetch 'Shougo/neobundle.vim'
+if dein#load_state('$HOME/.vim/bundle')
+  call dein#begin('$HOME/.vim/bundle')
 
+  " Let dein manage dein
+  " Required:
+  call dein#add('$HOME/.vim/bundle/repos/github.com/Shougo/dein.vim')
 
-  if has('nvim')
-    NeoBundle 'Shougo/deoplete.nvim'
-    let g:deoplete#enable_at_startup = 1
-    " gem install language_server
-    " npm install -g typescript-language-server
-    " npm install -g javascript-typescript-langserver
-    NeoBundle 'autozimu/LanguageClient-neovim'
-    let g:LanguageClient_serverCommands = {
-        \ 'ruby': ['language_server-ruby'],
-        \ }
-    nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-    nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-    nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-    let g:LanguageClient_autoStart = 1
+  call dein#add('Shougo/deoplete.nvim')
+""  call dein#add('prabirshrestha/vim-lsp')
+  " gem install language_server
+  " npm install -g typescript-language-server
+  " npm install -g javascript-typescript-langserver
+  call dein#add('autozimu/LanguageClient-neovim', {
+      \ 'rev': 'next',
+      \ 'build': 'bash install.sh',
+      \ })
+  call dein#add('junegunn/fzf')
 
-    " NeoBundleLazy 'Shougo/deoplete-rct', {
-    "            \ 'autoload' : { 'filetypes' : 'ruby'  }
-    "            \ }
-    "
-    " NeoBundleLazy 'fishbullet/deoplete-ruby', {
-    "            \ 'autoload' : { 'filetypes' : 'ruby'  }
-    "            \ }
-    "
-    " NeoBundleLazy 'osyo-manga/vim-monster', {
-    "            \ 'autoload' : { 'filetypes' : 'ruby'  }
-    "            \ }
-    " let g:monster#completion#rcodetools#backend = "async_rct_complete"
-    " let g:deoplete#sources#omni#input_patterns = {
-    " \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
-    " \}
+  call dein#add('ctrlpvim/ctrlp.vim')
 
-  else
-    NeoBundle 'Shougo/neocomplete.vim'
-  endif
+  " Add or remove your plugins here:
+  call dein#add('Shougo/unite.vim')
 
+  call dein#add('Shougo/neomru.vim')
 
-" 以下のプラグインをバンドル
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'Shougo/vimfiler'
-""NeoBundle 'Shougo/vimproc'
-NeoBundleLazy 'Shougo/vimshell'
-""NeoBundle 'scrooloose/syntastic'
-" gem install
-NeoBundle 'w0rp/ale'
+  call dein#add('Shougo/vimfiler')
 
-NeoBundleLazy 'mattn/emmet-vim'
-"NeoBundle 'open-browser.vim'
-NeoBundle 'mattn/webapi-vim'
+  call dein#add('Shougo/neosnippet.vim')
+  call dein#add('Shougo/neosnippet-snippets')
 
-" NeoBundle 'vim-scripts/dbext.vim'
-NeoBundle 'tomtom/tcomment_vim'
-NeoBundleLazy 'thinca/vim-ref'
-"NeoBundle 'Lokaltog/powerline'
-" Perl関連プラグインをバンドル
-"NeoBundle 'petdance/vim-perl'
-"NeoBundle 'hotchpotch/perldoc-vim'
+  call dein#add('tsukkee/unite-tag')
+  call dein#add('tpope/vim-fugitive')
+  call dein#add('gregsexton/gitv')
+  call dein#add('vim-scripts/DirDiff.vim')
 
-"NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
-" 実行プラグインをバンドル
-NeoBundleLazy 'thinca/vim-quickrun'
+  " QuickFixウィンドウでもプレビューや絞り込みを有効化
+  call dein#add('fuenor/qfixhowm')
 
-NeoBundleLazy 'https://github.com/thinca/vim-qfreplace'
-NeoBundle 'https://github.com/ctrlpvim/ctrlp.vim'
+  call dein#add('itchyny/lightline.vim')
+
+  call dein#add('Lokaltog/vim-easymotion')
+
+  call dein#add('majutsushi/tagbar')
+  call dein#add('kana/vim-tabpagecd')
+  call dein#add('tpope/vim-surround')
+  call dein#add('editorconfig/editorconfig-vim')
+  call dein#add('vim-scripts/BlockDiff')
+  call dein#add('w0rp/ale')
+  call dein#add('mattn/emmet-vim')
+  call dein#add('tomtom/tcomment_vim')
+  call dein#add('thinca/vim-quickrun')
+  call dein#add('thinca/vim-qfreplace')
+  call dein#add('joonty/vdebug')
+  call dein#add('Shougo/context_filetype.vim')
+  call dein#add('h1mesuke/vim-alignta')
+  call dein#add('ludovicchabant/vim-gutentags')
+  call dein#add('tpope/vim-projectionist')
+  call dein#add('lilydjwg/colorizer')
+
+  " インサートモード時に有効化
+  ""call dein#add('Shougo/neocomplete.vim', { 'on_i': 1 })
+
+  " ファイルタイプ別
+  call dein#add('vim-perl/vim-perl', { 'on_ft': 'perl' })
+  call dein#add('c9s/perlomni.vim', { 'on_ft': 'perl' })
+  " let g:syntastic_enable_perl_checker = 1
+  " let g:syntastic_perl_checkers = ['perl', 'perlcritic', 'podchecker']
+
+  " hs
+  call dein#add('dag/vim2hs', { 'on_ft': 'hs' })
+  call dein#add('eagletmt/ghcmod-vim', { 'on_ft': 'hs' })
+  call dein#add('eagletmt/neco-ghc', { 'on_ft': 'hs' })
+  call dein#add('eagletmt/unite-haddock', { 'on_ft': 'hs' })
+
+  " ruby
+  call dein#add('vim-scripts/ruby-matchit', { 'on_ft': [ "ruby", "eruby" ] })
+  call dein#add('tpope/vim-rails', { 'on_ft': 'ruby' })
+  call dein#add('basyura/unite-rails', { 'on_ft': 'ruby' })
+  call dein#add('vim-ruby/vim-ruby', { 'on_ft': 'ruby' })
+  call dein#add( 'tpope/vim-endwise', { 'on_ft': 'ruby' })
+
+  " typescript
+  call dein#add('leafgarland/typescript-vim.git')
+  call dein#add( 'peitalin/vim-jsx-typescript', { 'on_ft': 'typescript' })
+
+  "/etc/php.d/xdebug.ini
+  "~/.phpenv/versions/5.x.xx/etc/conf.d/xdebug.ini 
+  " let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+  " let g:syntastic_php_phpcs_args='--standard=psr2'
+
+  " html 
+  call dein#add('othree/html5.vim.git', { 'on_ft': 'html' })
+  call dein#add('hokaccha/vim-html5validator', { 'on_ft': 'html' })
+  call dein#add('hail2u/vim-css3-syntax', { 'on_ft': 'css' })
+  call dein#add('cakebaker/scss-syntax.vim', { 'on_ft': 'scss' })
+  "go
+  call dein#add('dgryski/vim-godef', { 'on_ft': 'go' })
+  call dein#add('vim-jp/vim-go-extra', { 'on_ft': 'go' })
+  call dein#add('fatih/vim-go', { 'on_ft': 'go' })
+
+  call dein#add('elixir-editors/vim-elixir')
+  call dein#add('slashmili/alchemist.vim', { 'on_ft': 'elixir' })
+""  call dein#add('kbrw/elixir.nvim', { 'on_ft': 'elixir' })
+  call dein#add('avdgaag/vim-phoenix', { 'on_ft': 'elixir' })
+  call dein#add('slim-template/vim-slim', { 'on_ft': 'elixir' })
+
+  " You can specify revision/branch/tag.
+  " "call dein#add('Shougo/deol.nvim', { 'rev': 'a1b5108fd' })
+
+  call dein#end()
+  call dein#save_state()
+endif
+
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
+
+"End dein Scripts-------------------------
+
+let g:deoplete#enable_at_startup = 1
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_serverCommands = {
+    \ 'ruby': ['language_server-ruby'],
+    \ 'typescript': ['javascript-typescript-stdio'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ }
 
 
 let g:ctrlp_use_caching = 0
@@ -95,199 +161,131 @@ else
                 \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
                 \ }
 endif
-
-
 let g:ctrlp_map = ''
 let g:ctrlp_cmd = 'CtrlP'
-noremap :cp :CtrlP
+" slashmili/alchemist.vim
+let g:alchemist_tag_disable = 1
 
-" 編集履歴管理
-"NeoBundle 'sjl/gundo.vim'
+" Add or remove your plugins here:
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor
+    set grepformat=%f:%l:%m
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = '--nogroup --nocolor'
+    let g:unite_source_grep_recursive_opt = ''
+endif
 
-
-NeoBundle 'tsukkee/unite-tag'
-
-NeoBundle 'https://github.com/tpope/vim-fugitive'
-NeoBundle 'https://github.com/gregsexton/gitv'
-
-"NeoBundle '5t111111/alt-gtags.vim'
-" NeoBundle 'hewes/unite-gtags'
-
-"NeoBundle 'https://github.com/c9s/perlomni.vim'
-NeoBundle 'https://github.com/vim-scripts/DirDiff.vim'
-NeoBundle 'https://github.com/fuenor/qfixhowm'
-" QuickFixウィンドウでもプレビューや絞り込みを有効化
-let QFixWin_EnableMode = 1
-
-NeoBundle 'https://github.com/Lokaltog/vim-easymotion'
-
-" メソッド定義元へのジャンプ
-" NeoBundle 'szw/vim-tags'
-NeoBundle 'majutsushi/tagbar'
-" NeoBundle 'https://github.com/dag/vim2hs'
-" NeoBundle 'https://github.com/eagletmt/ghcmod-vim'
-" NeoBundle 'https://github.com/eagletmt/neco-ghc'
-" NeoBundle 'https://github.com/eagletmt/unite-haddock'
-
-"go言語
-"NeoBundle 'dgryski/vim-godef'
-"NeoBundle 'vim-jp/vim-go-extra'
-
-" NeoBundle 'fatih/vim-go'
-"NeoBundleLazy 'fatih/vim-go', {
-"            \ 'autoload' : { 'filetypes' : 'go'  }
-"            \ }
-" vim-ft-goは最新版のvimを使えない場合のみ
-"NeoBundle 'google/vim-ft-go'
-"set rtp^=$GOPATH/src/github.com/nsf/gocode/vim
-
-"let g:CodeReviewer_reviewer = 'Karthick'
-"let g:CodeReviewer_reviewFile = '$HOME/review_Karthick.rev'
-"2NeoBundle 'https://github.com/vim-scripts/CodeReviewer.vim'
-
-NeoBundle 'kana/vim-tabpagecd'
-NeoBundle 'tpope/vim-surround'
-
-" ruby
-" ドキュメント参照
-NeoBundleLazy 'yuku-t/vim-ref-ri'
-
-" 自動で閉じる
-NeoBundleLazy 'tpope/vim-endwise'
-
-NeoBundle 'editorconfig/editorconfig-vim'
-
-NeoBundleLazy 'vim-scripts/ruby-matchit', { "autoload" : { 
-	\ "filetypes" : [ "ruby", "eruby" ] } }
- 
-""NeoBundleLazy 'marcus/rsense', {
-""      \ 'autoload': {
-""      \   'filetypes': 'ruby',
-""      \ },
-""      \ }
-""let g:rsenseUseOmniFunc = 1
-""NeoBundleLazy 'supermomonga/neocomplete-rsense.vim', { 'autoload' : {
-""  \ 'insert' : 1,
-""  \ 'filetypes': 'ruby',
-""  \ }}
- 
-""if !exists('g:neocomplete#force_omni_input_patterns')
-""  let g:neocomplete#force_omni_input_patterns = {}
-""endif
-""let g:neocomplete#force_omni_input_patterns.ruby =
-         \ '[^. *\t]\.\w*\|\h\w*::'
-""let g:syntastic_ruby_checkers = ['rubocop']
-
-
-NeoBundleLazy 'tpope/vim-rails', {
-           \ 'autoload' : { 'filetypes' : 'ruby'  }
-           \ }
-NeoBundleLazy 'basyura/unite-rails', {
-           \ 'autoload' : { 'filetypes' : 'ruby'  }
-           \ }
-NeoBundleLazy 'vim-ruby/vim-ruby', {
-           \ 'autoload' : { 'filetypes' : 'ruby'  }
-           \ }
-
-
-" php 
-" NeoBundle 'violetyk/neocomplete-php.vim'
-" let g:neocomplete_php_locale = 'ja'
-" NeoBundle 'vim-scripts/tagbar-phpctags', {
-"   \   'build' : {
-"   \     'others' : 'chmod +x bin/phpctags',
-"   \   },
-"   \ }
-
-NeoBundle 'violetyk/vim-phpclass'
-NeoBundle 'kana/vim-gf-user'
-"NeoBundle 'violetyk/cake.vim'
-" let g:cakephp_enable_auto_mode = 1
-NeoBundle 'joonty/vdebug'
-" 関連ファイル
-"/etc/php.d/xdebug.ini
-"~/.phpenv/versions/5.x.xx/etc/conf.d/xdebug.ini 
-
-" vim-php-cs-fixer {{{
-NeoBundleLazy 'stephpy/vim-php-cs-fixer', {'functions': 'PhpCsFixerFixFile'}
-nnoremap <Leader>php :<C-u>call<Space>PhpCsFixerFixFile()<CR>
-    let s:hooks = neobundle#get_hooks('vim-php-cs-fixer')
-    function! s:hooks.on_source(bundle) abort "{{{
-    let g:php_cs_fixer_path = "$HOME/.vim/phpCsFixer/php-cs-fixer" " php-cs-fixerをインストールした場所を指定
-    let g:php_cs_fixer_level = "all"                " which level ?
-    " let g:php_cs_fixer_level                  = 'symfony'
-    let g:php_cs_fixer_config = "default"           " configuration
-    let g:php_cs_fixer_php_path = "php"             " Path to PHP
-    " let g:php_cs_fixer_fixers_list            = 'align_equals,align_double_arrow'
-    " let g:php_cs_fixer_fixers_list = ""             " List of fixers
-    let g:php_cs_fixer_enable_default_mapping = 0   " Enable the mapping by default (<leader>pcd)
-    let g:php_cs_fixer_dry_run = 0                  " Call command with dry-run option
-    let g:php_cs_fixer_verbose = 0                  " Return the output of command if 1, else an inline information.
-    endfunction "}}}
-"}}}
-
-
-" let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-" let g:syntastic_php_phpcs_args='--standard=psr2'
-
-" outline
-NeoBundleLazy 'vim-voom/VOoM'
-
-" html 
-NeoBundleLazy 'othree/html5.vim.git'
-NeoBundleLazy 'hail2u/vim-css3-syntax'
-NeoBundleLazy 'hokaccha/vim-html5validator'
-NeoBundleLazy 'cakebaker/scss-syntax.vim'
-
-
-NeoBundle 'https://github.com/itchyny/lightline.vim'
-let g:lightline = {
-            \ 'colorscheme': 'wombat',
-            \ }
-
-
-""NeoBundle 'LeafCage/yankround.vim'
-" yankround.vim {{{
-"" キーマップ
-" nmap p <Plug>(yankround-p)
-" nmap P <Plug>(yankround-P)
-" nmap <C-p> <Plug>(yankround-prev)
-" nmap <C-n> <Plug>(yankround-next)
-"" 履歴取得数
-""let g:yankround_max_history = 50
-""履歴一覧(kien/ctrlp.vim)
-""nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
-" }}}
-
-" gtag
-" NeoBundle 'vim-scripts/gtags.vim'
-
-NeoBundle 'vim-scripts/BlockDiff'
-NeoBundle 'vim-perl/vim-perl'
-
-call neobundle#end()
-
-set t_Co=256
-set expandtab
-set tabstop=4
-set shiftwidth=4 "自動インデントでずれる幅
 
 " ファイラー関連
 let g:vimfiler_enable_auto_cd = 1
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_preview_action= 'tabopen'
-" mru,reg,buf
+
+" Enable snipMate compatibility feature.ｲ!
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#snippets_directory='~/.vim/snippets/snippets'
+
+" QuickFixウィンドウでもプレビューや絞り込みを有効化
+let QFixWin_EnableMode = 1
+
+let g:lightline = {
+            \ 'colorscheme': 'wombat',
+            \ }
+
+" インサートモード時に有効化
+""call dein#add('Shougo/neocomplete.vim', { 'on_i': 1 })
+
+" ファイルタイプ別
+" let g:syntastic_enable_perl_checker = 1
+" let g:syntastic_perl_checkers = ['perl', 'perlcritic', 'podchecker']
+
+"set rtp^=$GOPATH/src/github.com/nsf/gocode/vim
+" for golang {{{
+"set path+=$GOPATH/src/**
+"let g:gofmt_command = 'goimports'
+"au BufWritePre *.go Fmt
+"au BufNewFile,BufRead *.go set sw=4 noexpandtab ts=4 completeopt=menu,preview
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+"let g:go_fmt_fail_silently = 1
+"let g:go_fmt_autosave = 0
+"let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
+"au FileType go compiler go
+" }}}
+
+" gotags {{{
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
+" }}}
+
+autocmd BufRead,BufNewFile *.ts set filetype=typescript
+autocmd BufRead,BufNewFile *.tsx set filetype=typescript
+
+nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+
+noremap :cp :CtrlP
+
 noremap :um :Unite file_mru -buffer-name=file_mru
 noremap :ct :Unite tag -input=
 noremap :ut :Unite tab -input=
 noremap :fs :Unite file source
-
-
 noremap :gr :Unite gtags/ref -input=
 noremap :gd :Unite gtags/def -input=
 noremap :gg :Unite gtags/grep 
 noremap :gc :Unite gtags/completion -input=
 noremap :gf :Unite gtags/file -input=
+noremap :ag :tabnew <CR>:grep
+noremap :ts :tabnew <CR>:ts
+
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+nmap f <Leader><Leader>f
+nmap F <Leader><Leader>F
+
+
+set t_Co=256
+set expandtab
+set tabstop=4
+set shiftwidth=4 "自動インデントでずれる幅
 
 " 環境設定系
 " シンタックスハイライト
@@ -429,52 +427,9 @@ highlight Pmenu ctermbg=4
 highlight PmenuSel ctermbg=1
 highlight PMenuSbar ctermbg=4
 
-" neocomplcacheを起動時に有効化する
-let g:neocomplete#enable_at_startup = 1
-" 大文字を区切りとしたワイルドカードのように振る舞う機能
-let g:neocomplete#enable_camel_case_completion = 1
-let g:neocomplete#enable_smart_case = 1
-" _区切りの補完を有効化
-" 大文字が入力されるまで大文字小文字の区別を無視する
-let g:neocomplete#smart_case = 1
-" シンタックスをキャッシュするときの最小文字長を3に
-let g:neocomplete#min_syntax_length = 2
-"手動補完時に補完を行う入力数を制御
-let g:neocomplete#manual_completion_start_length = 1
-let g:neocomplete#caching_percent_in_statusline = 1
-let g:neocomplete#enable_skip_completion = 1
-let g:neocomplete#skip_input_time = '0.5'
-let g:acp_enableAtStartup = 0
-if !exists('g:neocomplete#force_omni_input_patterns')
-    let g:neocomplete#force_omni_input_patterns = {}
-endif
-let g:neocomplete#force_omni_input_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
-
-
 " Perl用設定
 autocmd BufNewFile,BufRead *.psgi   set filetype=perl
 autocmd BufNewFile,BufRead *.t      set filetype=perl
-
-" let g:syntastic_enable_perl_checker = 1
-" let g:syntastic_perl_checkers = ['perl', 'perlcritic', 'podchecker']
-let g:neocomplete#dictionary_filetype_lists = { 'default'    : '', 'perl'       : $HOME . '/.vim/dict/perl.dict' }
-
-
-" Enable snipMate compatibility feature.ｲ!
-let g:neosnippet#enable_snipmate_compatibility = 1
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
-
-nmap f <Leader><Leader>f
-nmap F <Leader><Leader>F
 
 ""noremap  gf <C-w>gf
 ""vnoremap gf <C-w>gf
@@ -483,9 +438,6 @@ nmap F <Leader><Leader>F
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
-" Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/snippets/snippets'
-" Define dictionary.
 
 " Java用設定
 "SQLのJava文字リテラルへの整形(:Sqltoj, :Sqlfromj)
@@ -506,6 +458,7 @@ echo "Convert from Java String is finished."
 endfunction
 command! Sqlfromj :call SQLFromJava()
 
+
 " 行末、行の最初への移動のキーマップ設定
 map! <C-e> <Esc>$a
 map! <C-a> <Esc>^a
@@ -519,72 +472,8 @@ nmap <Leader>r <plug>(quickrun)
 
 "set guifont=MS_Gothic:h11:cSHIFTJIS
 
-nmap f <Leader><Leader>f
-nmap F <Leader><Leader>F
-
-
 " grep検索
 nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-
-" unite grepにhw(highway)を使う
-if executable('ag')
-
-    set grepprg=ag\ --nogroup\ --nocolor
-    set grepformat=%f:%l:%m
-
-    let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts = '--nogroup --nocolor'
-    let g:unite_source_grep_recursive_opt = ''
-endif
-
-
-" for golang {{{
-"set path+=$GOPATH/src/**
-"let g:gofmt_command = 'goimports'
-"au BufWritePre *.go Fmt
-"au BufNewFile,BufRead *.go set sw=4 noexpandtab ts=4 completeopt=menu,preview
-
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-"let g:go_fmt_fail_silently = 1
-"let g:go_fmt_autosave = 0
-"let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
-"au FileType go compiler go
-" }}}
-
-" gotags {{{
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
-" }}}
-
 
 "tab {{{
 function! s:SID_PREFIX()
@@ -616,20 +505,13 @@ set showtabline=2
 " }}}
 
 " ついになるものを補完
-inoremap { {}<LEFT>
-inoremap [ []<LEFT>
-inoremap ( ()<LEFT>
-inoremap " ""<LEFT>
-inoremap ' ''<LEFT>
-inoremap ' ''<LEFT>
-inoremap < <><LEFT>
-
-
-" フォルダ指定grep {{{
-function! s:select_grep()
-endfunction
-
-"}}}
+" inoremap { {}<LEFT>
+" inoremap [ []<LEFT>
+" inoremap ( ()<LEFT>
+" inoremap " ""<LEFT>
+" inoremap ' ''<LEFT>
+" inoremap ' ''<LEFT>
+" inoremap < <><LEFT>
 
 
 " ctrl +space
@@ -640,18 +522,13 @@ tnoremap <silent> <ESC> <C-\><C-n>
 
 nnoremap <F3> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 vnoremap <F3> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
+vnoremap <silent> <C-p> "0p<CR>
 
-" vp doesn't replace paste buffer
-function! RestoreRegister()
-    let @" = s:restore_reg
-    return ''
-endfunction
-function! s:Repl()
-    let s:restore_reg = @"
-    return "p@=RestoreRegister()\<cr>"
-endfunction
-vmap <silent> <expr> p <sid>Repl()
-
+" wget https://gist.githubusercontent.com/luan/6362811/raw/bfdf372168a5d5b97402a70f080f150218fe5044/Hybrid.itermcolors
+" g
+" mkdir -p ~/.vim/colors
+" mv vim-hybrid ~/.vim/colors
+" colorscheme hybrid
 
 " vimdiffの色設定
 highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=22
@@ -661,3 +538,5 @@ highlight DiffText   cterm=bold ctermfg=10 ctermbg=21
 
 filetype plugin indent on
 syntax on
+
+

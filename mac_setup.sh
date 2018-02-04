@@ -2,6 +2,7 @@
 
 brew install git
 
+brew install python2
 brew install python3
 
 brew install bash-completion
@@ -20,8 +21,11 @@ brew install the_silver_searcher
 
 brew install postgresql
 brew install mysql
+brew cask install rdm
 
 brew install ctags
+brew tap universal-ctags/universal-ctags
+brew install --HEAD universal-ctags
 
 brew install fzf
 # git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
@@ -69,6 +73,17 @@ source ~/.bash_profile
 ndenv install ${NODE_VER}
 ndenv global ${NODE_VER}
 ndenv rehash
+brew install yarn
+yarn init
+yarn add --dev typescript tslint tslint-microsoft-contrib jest ts-jest @types/jest
+yarn add webpack ts-loader --dev
+yarn --dev add typings webpack
+#yarn add --dev react react-dom jquery marked
+
+npm install -g neovim
+npm install -g javascript-typescript-langserver
+npm install -g eslint
+npm install -g tslint
 
 anyenv install pyenv
 source ~/.bash_profile
@@ -76,6 +91,11 @@ pyenv install ${PYTHON2_VER}
 pyenv install ${PYTHON3_VER}
 pyenv rehash
 
+pip3 install --upgrade pip
+pip3 install --upgrade neovim
+python -m pip -V
+python2.7 -m pip install neovim
+pyenv global 3.6.4 2.7.14
 
 anyenv install erlenv
 brew cask reinstall java
@@ -84,7 +104,8 @@ brew install kerl
 # kerl list releases
 kerl build 20.2 20.2
 kerl install 20.2 ~/.anyenv/envs/erlenv/releases/20.2
-. /Users/soyu/.anyenv/envs/erlenv/releases/20.2/activate
+erlenv global 20.2
+erlenv rehash
 
 anyenv install exenv
 # exenv install -l
@@ -92,8 +113,27 @@ exenv install ${ELIXIR_VER}
 exenv global ${ELIXIR_VER}
 exenv rehash
 
+mix local.hex --force
+mix local.rebar --force
+npm install -g brunch
+
+# phoenix_
+mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez
+
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
 sh ./installer.sh ~/.vim/bundle
 
+
+brew tap caskroom/fonts
+brew cask install font-source-han-code-jp
+
+wget https://gist.githubusercontent.com/luan/6362811/raw/bfdf372168a5d5b97402a70f080f150218fe5044/Hybrid.itermcolors
+git clone https://github.com/w0ng/vim-hybrid
+mkdir -p ~/.vim/colors
+mv vim-hybrid ~/.vim/colors
+
+# rails コマンド
+# bundle install --path vendor/bundle
+# bundle install --path vendor/bundle
 #docker build ./ -t rails_sample
 #docker run -i -t --cap-add=SYS_PTRACE --security-opt="seccomp=unconfined" rails_sample /bin/bash

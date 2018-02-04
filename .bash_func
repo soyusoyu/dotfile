@@ -26,4 +26,6 @@ function gs {
  git status
 }
 
+alias vim='nvim'
+alias vimf='nvim +VimFilerExplorer'
 
