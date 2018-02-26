@@ -55,6 +55,7 @@ PYTHON2_VER="2.7.14"
 PYTHON3_VER="3.6.4"
 
 ELIXIR_VER="1.5.3"
+ELIXIR_VER_16="1.6.1"
 ANYENV_HOME=$HOME/.anyenv
 ANYENV_ENV=$ANYENV_HOME/envs
 
@@ -112,6 +113,9 @@ anyenv install exenv
 exenv install ${ELIXIR_VER}
 exenv global ${ELIXIR_VER}
 exenv rehash
+exenv install ${ELIXIR_VER_16}
+exenv global ${ELIXIR_VER_16}
+exenv rehash
 
 mix local.hex --force
 mix local.rebar --force
@@ -131,6 +135,12 @@ wget https://gist.githubusercontent.com/luan/6362811/raw/bfdf372168a5d5b97402a70
 git clone https://github.com/w0ng/vim-hybrid
 mkdir -p ~/.vim/colors
 mv vim-hybrid ~/.vim/colors
+
+# rust
+brew install rust
+
+# cobol
+brew install gnu-cobol
 
 # rails コマンド
 # bundle install --path vendor/bundle

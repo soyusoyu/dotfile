@@ -31,6 +31,8 @@ if dein#load_state('$HOME/.vim/bundle')
   " gem install language_server
   " npm install -g typescript-language-server
   " npm install -g javascript-typescript-langserver
+  " pip2 install python-language-server
+  " pip3 install python-language-server
   call dein#add('autozimu/LanguageClient-neovim', {
       \ 'rev': 'next',
       \ 'build': 'bash install.sh',
@@ -74,9 +76,13 @@ if dein#load_state('$HOME/.vim/bundle')
   call dein#add('joonty/vdebug')
   call dein#add('Shougo/context_filetype.vim')
   call dein#add('h1mesuke/vim-alignta')
-  call dein#add('ludovicchabant/vim-gutentags')
-  call dein#add('tpope/vim-projectionist')
+  "call dein#add('ludovicchabant/vim-gutentags')
+  " call dein#add('tpope/vim-projectionist')
   call dein#add('lilydjwg/colorizer')
+  " call dein#add('jsfaint/gen_tags.vim')
+  " call dein#add('dbakker/vim-projectroot')
+  " call dein#add( 'vim-syntastic/syntastic')
+
 
   " インサートモード時に有効化
   ""call dein#add('Shougo/neocomplete.vim', { 'on_i': 1 })
@@ -87,6 +93,9 @@ if dein#load_state('$HOME/.vim/bundle')
   " let g:syntastic_enable_perl_checker = 1
   " let g:syntastic_perl_checkers = ['perl', 'perlcritic', 'podchecker']
 
+  call dein#add('davidhalter/jedi-vim', { 'on_ft': 'python' })
+  call dein#add('Vimjas/vim-python-pep8-indent', { 'on_ft': 'python' })
+
   " hs
   call dein#add('dag/vim2hs', { 'on_ft': 'hs' })
   call dein#add('eagletmt/ghcmod-vim', { 'on_ft': 'hs' })
@@ -94,11 +103,16 @@ if dein#load_state('$HOME/.vim/bundle')
   call dein#add('eagletmt/unite-haddock', { 'on_ft': 'hs' })
 
   " ruby
+  " gem install json rest-client solargraph
+  " call dein#add('hackhowtofaq/vim-solargraph', { 'on_ft': [ "ruby", "eruby" ] })
+  " call dein#add('osyo-manga/vim-monster', { 'on_ft': [ "ruby", "eruby" ] })
+  " call dein#add('uplus/deoplete-solargraph', { 'on_ft': [ "ruby", "eruby" ] })
   call dein#add('vim-scripts/ruby-matchit', { 'on_ft': [ "ruby", "eruby" ] })
   call dein#add('tpope/vim-rails', { 'on_ft': 'ruby' })
   call dein#add('basyura/unite-rails', { 'on_ft': 'ruby' })
   call dein#add('vim-ruby/vim-ruby', { 'on_ft': 'ruby' })
-  call dein#add( 'tpope/vim-endwise', { 'on_ft': 'ruby' })
+  call dein#add( 'tpope/vim-endwise', { 'on_ft': [ "ruby", "elixir" ] })
+
 
   " typescript
   call dein#add('leafgarland/typescript-vim.git')
@@ -138,6 +152,15 @@ if dein#check_install()
 endif
 
 "End dein Scripts-------------------------
+" let g:monster#completion#backend = 'solargraph'
+" let g:monster#completion#solargraph#backend = "async_solargraph_suggest"
+" let g:deoplete#sources#omni#input_patterns = {
+" \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+" \}
+" let g:monster#debug#enable = 1
+
+" let g:gen_tags#ctags_auto_gen = 1
+" let g:gen_tags#gtags_auto_gen = 1
 
 let g:deoplete#enable_at_startup = 1
 let g:LanguageClient_autoStart = 1
@@ -146,9 +169,9 @@ let g:LanguageClient_serverCommands = {
     \ 'typescript': ['javascript-typescript-stdio'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \ 'python': ['pyls'],
     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
     \ }
-
 
 let g:ctrlp_use_caching = 0
 if executable('ag')
@@ -161,6 +184,9 @@ else
                 \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
                 \ }
 endif
+
+let g:syntastic_check_on_wq = 0
+
 let g:ctrlp_map = ''
 let g:ctrlp_cmd = 'CtrlP'
 " slashmili/alchemist.vim
