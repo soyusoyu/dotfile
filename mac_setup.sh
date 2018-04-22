@@ -49,10 +49,13 @@ if [ -d $HOME/.anyenv ] ; then
 fi
 source ~/.bash_profile
 
-RUBY_VER="2.4.3"
-NODE_VER="v8.9.4"
+RUBY_VER="2.5.1"
+NODE_VER="v8.11.1"
 PYTHON2_VER="2.7.14"
-PYTHON3_VER="3.6.4"
+PYTHON3_VER="3.6.5"
+
+PHP5_VER="5.6.34"
+PHP7_VER="7.2.3"
 
 ELIXIR_VER="1.5.3"
 ELIXIR_VER_16="1.6.1"
@@ -92,11 +95,13 @@ pyenv install ${PYTHON2_VER}
 pyenv install ${PYTHON3_VER}
 pyenv rehash
 
+pyenv global ${PYTHON3_VER} ${PYTHON2_VER}
 pip3 install --upgrade pip
-pip3 install --upgrade neovim
-python -m pip -V
-python2.7 -m pip install neovim
-pyenv global 3.6.4 2.7.14
+pip3 install neovim
+python2 -m pip -V
+python2 -m pip install -U pip
+python2 -m pip install neovim
+
 
 anyenv install erlenv
 brew cask reinstall java
@@ -141,6 +146,16 @@ brew install rust
 
 # cobol
 brew install gnu-cobol
+
+
+# php
+anyenv install phpenv
+source ~/.bash_profile
+phpenv install ${PHP5_VER}
+phpenv install ${PHP7_VER}
+rbenv global ${RUBY_VER}
+rbenv rehash
+
 
 # rails コマンド
 # bundle install --path vendor/bundle
