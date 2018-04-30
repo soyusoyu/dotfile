@@ -67,7 +67,6 @@ if dein#load_state('$HOME/.vim/bundle')
   call dein#add('kana/vim-tabpagecd')
   call dein#add('tpope/vim-surround')
   call dein#add('editorconfig/editorconfig-vim')
-  call dein#add('vim-scripts/BlockDiff')
   call dein#add('w0rp/ale')
   call dein#add('mattn/emmet-vim')
   call dein#add('tomtom/tcomment_vim')
@@ -138,6 +137,12 @@ if dein#load_state('$HOME/.vim/bundle')
 ""  call dein#add('kbrw/elixir.nvim', { 'on_ft': 'elixir' })
   call dein#add('avdgaag/vim-phoenix', { 'on_ft': 'elixir' })
   call dein#add('slim-template/vim-slim', { 'on_ft': 'elixir' })
+
+  " php
+  call dein#add('roxma/LanguageServer-php-neovim', { 'on_ft': 'php' })
+  " cd ~/.vim/bundle/repos/github.com/roxma/LanguageServer-php-neovim/
+  " composer install
+  " composer run-script parse-stubs
 
   " You can specify revision/branch/tag.
   " "call dein#add('Shougo/deol.nvim', { 'rev': 'a1b5108fd' })
@@ -524,6 +529,48 @@ function! s:my_tabline()  "{{{
         let s .= '%#TabLineFill#%T%=%#TabLine#'
         return s
 endfunction "}}}
+
+
+" Commands 
+    command! -range BlockDiff1 :<line1>,<line2>call BlockDiff_GetBlock1() 
+    command! -range BlockDiff2 :<line1>,<line2>call BlockDiff_GetBlock2()
+" ---------- Code -------------------------------------------------------------
+fun! BlockDiff_GetBlock1() range
+  let s:regd = @@
+  " copy selected block into unnamed register
+  exe a:firstline . "," . a:lastline . "y"
+  " save block for later use in variable
+  let s:block1 = @@
+  " restore unnamed register
+  let @@ = s:regd
+endfun
+
+fun! BlockDiff_GetBlock2() range
+  let s:regd = @@
+  exe a:firstline . "," . a:lastline . "y"
+
+  " Open new tab, paste second selected block
+  tabnew
+  normal P
+  " to prevent 'No write since last change' message:
+  se buftype=nowrite
+  diffthis
+
+  " vsplit left for first selected block
+  lefta vnew
+  " copy first block into unnamed register & paste
+  let @@ = s:block1
+  normal P
+  se buftype=nowrite
+
+  " start diff
+  diffthis
+
+  " restore unnamed register
+  let @@ = s:regd
+endfun
+
+
 
 " tab表示部
 let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'

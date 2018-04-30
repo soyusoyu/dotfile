@@ -5,11 +5,15 @@ brew install git
 brew install python2
 brew install python3
 
+brew install nginx
+
 brew install bash-completion
 
 brew tap caskroom/cask
 
 brew cask install vimr
+brew install httpie
+brew install httpry
 
 brew cask install firefox
 
@@ -21,6 +25,8 @@ brew install the_silver_searcher
 
 brew install postgresql
 brew install mysql
+# docker mysql
+# mysql -hlocalhost -u root -P 33060
 brew cask install rdm
 
 brew install ctags
@@ -34,6 +40,39 @@ brew install fzf
 brew cask install intellij-idea
 
 brew cask install docker
+
+# for php
+brew install gcc re2c libmcrypt autoconf automake libiconv
+brew install bison
+brew link --force bison
+brew install openssl
+brew install libxml2
+brew link --force openssl
+brew link --force libxml2
+# jpeg
+brew install jpeg
+# png
+brew install libpng
+# icu4c
+brew instal icu4c
+brew link --force icu4c
+
+
+# fuelphp start
+# curl http://fuelphp.com/files/download/34 -o fuelphp-1.7.3.zip
+curl https://fuelphp.com:443/files/download/34 -o fuelphp-1.7.3.zip
+unzip fuelphp-1.7.3.zip
+rm fuelphp-1.7.3.zip
+mv fuelphp-1.7.3 www
+cd www
+php oil refine install
+# Error - date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in COREPATH/classes/fuel.php on line 162
+# ↓#
+# app/config/config.php add
+#	'default_timezone'   => 'Asia/Tokyo',
+php oil server
+# fuelphp end
+
 source ~/.bashrc
 
 git clone https://github.com/riywo/anyenv ~/.anyenv
@@ -51,11 +90,11 @@ source ~/.bash_profile
 
 RUBY_VER="2.5.1"
 NODE_VER="v8.11.1"
-PYTHON2_VER="2.7.14"
+PYTHON27_VER="2.7.14"
+PYTHON26_VER="2.6.9"
 PYTHON3_VER="3.6.5"
-
-PHP5_VER="5.6.34"
-PHP7_VER="7.2.3"
+PHP5_VER="5.6.36"
+PHP7_VER="7.0.16"
 
 ELIXIR_VER="1.5.3"
 ELIXIR_VER_16="1.6.1"
@@ -91,11 +130,12 @@ npm install -g tslint
 
 anyenv install pyenv
 source ~/.bash_profile
-pyenv install ${PYTHON2_VER}
+pyenv install ${PYTHON26_VER}
+pyenv install ${PYTHON27_VER}
 pyenv install ${PYTHON3_VER}
 pyenv rehash
 
-pyenv global ${PYTHON3_VER} ${PYTHON2_VER}
+pyenv global ${PYTHON3_VER} ${PYTHON27_VER}
 pip3 install --upgrade pip
 pip3 install neovim
 python2 -m pip -V
@@ -149,12 +189,14 @@ brew install gnu-cobol
 
 
 # php
+# brew install bison@2.7
+# echo 'export PATH="/usr/local/opt/bison@2.7/bin:$PATH"' >> ~/.bash_profile
 anyenv install phpenv
 source ~/.bash_profile
 phpenv install ${PHP5_VER}
 phpenv install ${PHP7_VER}
-rbenv global ${RUBY_VER}
-rbenv rehash
+phpenv global ${PHP5_VER}
+phpenv  rehash
 
 
 # rails コマンド
