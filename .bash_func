@@ -26,6 +26,7 @@ function gs {
  git status
 }
 
+alias php_d='XDEBUG_CONFIG="idekey=xdebug remote_host=localhost remote_enable=1" php'
 alias vim='nvim'
 alias vimf='nvim +VimFilerExplorer'
 

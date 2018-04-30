@@ -29,7 +29,9 @@ brew install mysql
 # mysql -hlocalhost -u root -P 33060
 brew cask install rdm
 
-brew install ctags
+# brew install ctags
+
+# 設定場所 ~/.ctags.d/elixir.ctags
 brew tap universal-ctags/universal-ctags
 brew install --HEAD universal-ctags
 

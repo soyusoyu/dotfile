@@ -1,0 +1,32 @@
+snippet     grep
+abbr        array_filter
+    $filter_func = function ($value) use ($filter_age) { return ($value >= $filter_age); };
+    $result = array_filter($players, $filter_func);
+
+snippet     map
+abbr        array_map
+    $map_func = function ($value) use ($local_value) { return $value * $local_value; };
+    $result = array_map($map_func, $players);
+
+
+snippet     hash_sample
+    $hash = [
+        "foo" => "bar",
+        "bar" => "foo",
+    ];
+
+snippet     hash_roop
+    foreach ($hash_array as $hash_key => $hash_value){
+    }
+
+snippet     array_roop
+    foreach ($hash_array as $hash_key => $hash_value){
+    }
+
+snippet     array_length
+    count($array);
+
+snippet     array_column
+    $first_names = array_column($pearson_hash_array, 'first_name');
+
+
