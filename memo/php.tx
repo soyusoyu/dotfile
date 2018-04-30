@@ -1,0 +1,2 @@
+○php.iniの場所
+php -i | grep 'php.ini'
