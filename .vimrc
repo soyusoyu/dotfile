@@ -33,8 +33,8 @@ if dein#load_state('$HOME/.vim/bundle')
 ""  call dein#add('prabirshrestha/vim-lsp')
   " 不要gem install language_server
   " gem install solargraph
-  " npm install -g typescript-language-server
   " npm install -g javascript-typescript-langserver
+  " 不要 npm install -g typescript typescript-language-server
   " pip2 install python-language-server
   " pip3 install python-language-server
   call dein#add('autozimu/LanguageClient-neovim', {
@@ -177,15 +177,14 @@ call deoplete#custom#var('omni', 'input_patterns', {
 let g:deoplete#enable_at_startup = 1
 " let g:LanguageClient_autoStart = 1
 "    \ 'ruby': ['language_server-ruby'],
+" \ 'typescript': ['javascript-typescript-stdio'],
+" \ 'javascript': ['javascript-typescript-stdio'],
 let g:LanguageClient_serverCommands = {
     \ 'ruby': ['solargraph', 'stdio'],
-    \ 'typescript': ['javascript-typescript-stdio'],
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \ 'javascript': ['typescript-language-server', '--stdio'],
     \ 'python': ['pyls'],
     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
     \ }
-
 let g:ctrlp_use_caching = 0
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
