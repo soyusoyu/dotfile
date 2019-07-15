@@ -4,6 +4,18 @@ brew install git
 
 brew install python2
 brew install python3
+brew install  node
+npm install -g neovim
+
+brew install neovim
+# brew tap neovim/homebrew-neovim
+# brew install --HEAD neovim
+# brew tap neovim/neovim
+# brew tap rogual/neovim-dot-app
+# brew install neovim-dot-app
+# ln -s /usr/local/opt/neovim-dot-app /Applications
+#
+brew cask install visual-studio-code
 
 brew install nginx
 
@@ -14,6 +26,8 @@ brew tap caskroom/cask
 brew cask install vimr
 brew install httpie
 brew install httpry
+brew cask install sequel-pro
+
 
 brew cask install firefox
 
@@ -40,8 +54,9 @@ brew install fzf
 # ~/.fzf/install
 
 brew cask install intellij-idea
-
 brew cask install docker
+brew install scons
+brew install msgpack
 
 # for php
 brew install gcc re2c libmcrypt autoconf automake libiconv
@@ -59,6 +74,7 @@ brew install libpng
 brew instal icu4c
 brew link --force icu4c
 
+brew cask reinstall xquartz
 
 # fuelphp start
 # curl http://fuelphp.com/files/download/34 -o fuelphp-1.7.3.zip
@@ -77,7 +93,9 @@ php oil server
 
 source ~/.bashrc
 
-git clone https://github.com/riywo/anyenv ~/.anyenv
+git clone https://github.com/anyenv/anyenv ~/.anyenv
+anyenv install --init
+# git clone https://github.com/riywo/anyenv ~/.anyenv
 add bash_profile
 if [ -d $HOME/.anyenv ] ; then
     export PATH="$HOME/.anyenv/bin:$PATH"
@@ -90,8 +108,9 @@ if [ -d $HOME/.anyenv ] ; then
 fi
 source ~/.bash_profile
 
-RUBY_VER="2.5.1"
-NODE_VER="v8.11.1"
+RUBY_VER="2.6.1"
+# NODE_VER="v8.11.1"
+NODE_VER="10.16.0"
 PYTHON27_VER="2.7.14"
 PYTHON26_VER="2.6.9"
 PYTHON3_VER="3.6.5"
@@ -112,11 +131,18 @@ rbenv install ${RUBY_VER}
 rbenv global ${RUBY_VER}
 rbenv rehash
 gem update --system; gem install --no-ri --no-rdoc rails;
+gem install neovim
+# 確認
+# gem environment
 
-anyenv install ndenv
+# .bundle/config
+# ---
+# BUNDLE_PATH: "vendor/bundle"
+
+anyenv install nodenv
 source ~/.bash_profile
-ndenv install ${NODE_VER}
-ndenv global ${NODE_VER}
+nodenv install ${NODE_VER}
+nodenv global ${NODE_VER}
 ndenv rehash
 brew install yarn
 yarn init

@@ -9,11 +9,14 @@ filetype plugin indent off
 
 set encoding=utf-8
 set fileencodings=iso-2022-jp,euc-jp,cp932,utf-8
-
-set runtimepath+=$HOME/.vim/bundle/repos/github.com/Shougo/dein.vim
+" curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+" sh ./installer.sh ~/.vim/bundle/dein
+set runtimepath+=$HOME/.vim/bundle/dein/repos/github.com/Shougo/dein.vim
 
 " let g:python_host_prog='$HOME/.anyenv/envs/pyenv/versions/2.7.14/bin/python2'
+let g:python_host_prog='/usr/local/bin/python2'
 " let g:python3_host_prog='$HOME/.anyenv/envs/pyenv/versions/3.6.4/bin/python3'
+let g:python3_host_prog='/usr/local/bin/python3'
 
 "" pip3 install --upgrade neovim
 "" gem install neovim
@@ -24,11 +27,12 @@ if dein#load_state('$HOME/.vim/bundle')
 
   " Let dein manage dein
   " Required:
-  call dein#add('$HOME/.vim/bundle/repos/github.com/Shougo/dein.vim')
+  call dein#add('$HOME/.vim/bundle/dein/repos/github.com/Shougo/dein.vim')
 
   call dein#add('Shougo/deoplete.nvim')
 ""  call dein#add('prabirshrestha/vim-lsp')
-  " gem install language_server
+  " 不要gem install language_server
+  " gem install solargraph
   " npm install -g typescript-language-server
   " npm install -g javascript-typescript-langserver
   " pip2 install python-language-server
@@ -166,11 +170,15 @@ endif
 
 " let g:gen_tags#ctags_auto_gen = 1
 " let g:gen_tags#gtags_auto_gen = 1
+call deoplete#custom#var('omni', 'input_patterns', {
+    \ 'ruby': ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::'],
+\})
 
 let g:deoplete#enable_at_startup = 1
-let g:LanguageClient_autoStart = 1
+" let g:LanguageClient_autoStart = 1
+"    \ 'ruby': ['language_server-ruby'],
 let g:LanguageClient_serverCommands = {
-    \ 'ruby': ['language_server-ruby'],
+    \ 'ruby': ['solargraph', 'stdio'],
     \ 'typescript': ['javascript-typescript-stdio'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
@@ -181,6 +189,10 @@ let g:LanguageClient_serverCommands = {
 let g:ctrlp_use_caching = 0
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
+
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = '--nogroup --nocolor'
+    let g:unite_source_grep_recursive_opt = ''
 
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 else
@@ -198,13 +210,13 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:alchemist_tag_disable = 1
 
 " Add or remove your plugins here:
-if executable('ag')
-    set grepprg=ag\ --nogroup\ --nocolor
-    set grepformat=%f:%l:%m
-    let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts = '--nogroup --nocolor'
-    let g:unite_source_grep_recursive_opt = ''
-endif
+" if executable('ag')
+"     set grepprg=ag\ --nogroup\ --nocolor
+"     set grepformat=%f:%l:%m
+"     let g:unite_source_grep_command = 'ag'
+"     let g:unite_source_grep_default_opts = '--nogroup --nocolor'
+"     let g:unite_source_grep_recursive_opt = ''
+" endif
 
 
 " ファイラー関連
@@ -297,6 +309,7 @@ noremap :gc :Unite gtags/completion -input=
 noremap :gf :Unite gtags/file -input=
 noremap :ag :tabnew <CR>:grep
 noremap :ts :tabnew <CR>:ts
+noremap :tm :tabnew <CR>:terminal
 
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -596,6 +609,7 @@ tnoremap <silent> <ESC> <C-\><C-n>
 nnoremap <F3> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 vnoremap <F3> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 vnoremap <silent> <C-p> "0p<CR>
+
 
 " wget https://gist.githubusercontent.com/luan/6362811/raw/bfdf372168a5d5b97402a70f080f150218fe5044/Hybrid.itermcolors
 " g
