@@ -330,7 +330,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'ruby' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -497,6 +497,19 @@ mason_lspconfig.setup_handlers {
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
+require'luasnip'.filetype_extend("ruby", {"rails","rdoc"})
+require("luasnip").filetype_extend("typescript", { "typescript", "javascript", "react-ts", "tsdoc" })
+require("luasnip").filetype_extend("javascript", { "javascript", "react", "jsdoc" })
+require("luasnip").filetype_extend("lua", { "lua", "luadoc" })
+require("luasnip").filetype_extend("python", { "python", "unittest", "debug", "pydoc" })
+require("luasnip").filetype_extend("rust", { "rust", "rustdoc" })
+require("luasnip").filetype_extend("java", { "java", "javadoc", "java-tests" })
+-- require("luasnip").filetype_extend("php", { "php", "phpdoc" })
+require("luasnip").filetype_extend("go", { "go" })
+require("luasnip").filetype_extend("sql", { "sql" })
+require("luasnip").filetype_extend("markdown", { "markdown" })
+require("luasnip").filetype_extend("sh", { "shell", "shelldoc" })
+
 luasnip.config.setup {}
 
 cmp.setup {
