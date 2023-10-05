@@ -20,6 +20,9 @@ vim.o.backup = false
 -- 日本語の表示補正(itermでは、不要そう、必要な場合、有効にする)
 -- vim.o.ambiwidth = 'double'
 
+-- oldfilesの上限変更
+vim.opt.shada = "!,'5000,<50,s10,h"
+
 _G.my_tabline = function()
   local s = ''
   for i = 1, vim.fn.tabpagenr('$'), 1 do
