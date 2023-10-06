@@ -1,0 +1,7 @@
+{
+  "example": {
+    "prefix": "go_snippet",
+    "body": ["hello go snippets!!"],
+    "description": "example go snippets"
+  }
+}

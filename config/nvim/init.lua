@@ -496,7 +496,9 @@ mason_lspconfig.setup_handlers {
 -- See `:help cmp`
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
-require('luasnip.loaders.from_vscode').lazy_load()
+-- https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md
+require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_vscode").lazy_load({paths = "~/.config/nvim/my_snippets"})
 require'luasnip'.filetype_extend("ruby", {"rails","rdoc"})
 require("luasnip").filetype_extend("typescript", { "typescript", "javascript", "react-ts", "tsdoc" })
 require("luasnip").filetype_extend("javascript", { "javascript", "react", "jsdoc" })

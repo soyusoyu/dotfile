@@ -1,0 +1,7 @@
+{
+  "example": {
+    "prefix": "javascript_snippet",
+    "body": ["hello javascript_snippet!!"],
+    "description": "example javascript snippets"
+  }
+}

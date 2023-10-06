@@ -1,0 +1,7 @@
+{
+  "example": {
+    "prefix": "ruby_snippet",
+    "body": ["hello ruby snippets!!"],
+    "description": "example ruby snippets"
+  }
+}
