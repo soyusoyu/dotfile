@@ -7,3 +7,7 @@ mkdir -p ${HOME}/.config
 ln -snfv ${HOME}/dotfile/config/nvim ${HOME}/.config/nvim
 ln -snfv ${HOME}/dotfile/starship.toml ${HOME}/.config/starship.toml
 ln -snfv ${HOME}/dotfile/.zshrc ${HOME}/.zshrc
+ln -snfv ${HOME}/dotfile/.zsh_func ${HOME}/.zsh_func
+mv ~/Library/Application\ Support/Code/User/settings.json ~/Library/Application\ Support/Code/User/settings.json.initfile.bak
+ln -snfv ${HOME}/dotfile/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
+

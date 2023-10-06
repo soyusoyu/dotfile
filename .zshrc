@@ -21,3 +21,4 @@ export PATH=$PATH:/usr/local/Cellar/universal-ctags/p6.0.20230924.0/bin
 eval "$(starship init zsh)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.zsh_func ] && source  ~/.zsh_func
