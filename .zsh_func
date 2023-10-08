@@ -1,2 +1,22 @@
 
 alias nvimf='nvim +Neotree'
+
+install_ruby ()
+{
+  asdf install ruby $(cat .ruby-version)
+}
+
+install_node ()
+{
+  asdf install nodejs $(cat .node-version)
+}
+
+install_yarn ()
+{
+  npm install -g yarn
+}
+
+bundle_install ()
+{
+  bundle install --path vendor/bundle
+}
