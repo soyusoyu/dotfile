@@ -10,7 +10,12 @@ vim.keymap.set('n', '<C-l>', '<C-w>l', { noremap = true })
 vim.keymap.set('n', '<Esc><Esc>', ':nohlsearch<CR>', { silent = true })
 
 -- telescope 追加
-vim.keymap.set('n', '<leader>sb', require('telescope.builtin').buffers, { desc = '[S]earch [B]uffer' })
+vim.api.nvim_set_keymap("n", ":um",
+  [[<cmd>lua require('telescope').extensions.recent_files.pick()<CR>]],
+  {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", ":ut",
+  [[<cmd>lua require('telescope-tabs').list_tabs()<CR>]],
+  {noremap = true, silent = true})
 
 -- swap関連ファイルは作成しない
 vim.o.swapfile = false
