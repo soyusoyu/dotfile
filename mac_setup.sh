@@ -1,5 +1,14 @@
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
+# wsl
+# (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/xxx/.zshrc
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# sudo apt-get install build-essential
+# sudo apt-get update -y
+# sudo apt-get install zsh -y
+# chsh -s /bin/zsh
+# brew install gcc
+
 # - Spotlightのショートカットを無効にする
 # - 入力リソースのショートカットを無効にする
 # - キーリピートを速,リピート認識を短にする
@@ -19,9 +28,9 @@ brew install starship
 brew install zinit
 # To activate zinit, add the following to your ~/.zshrc:
 #   source /usr/local/opt/zinit/zinit.zsh
-zinit light zsh-users/zsh-autosuggestions
-zinit light zsh-users/zsh-completions
-zinit light zdharma/fast-syntax-highlighting
+# zinit light zsh-users/zsh-autosuggestions
+# zinit light zsh-users/zsh-completions
+# zinit light zdharma/fast-syntax-highlighting
 # zinit light romkatv/powerlevel10k
 
 brew install asdf
@@ -103,6 +112,10 @@ code --install-extension golang.Go
 code --install-extension rust-lang.rust-analyzer
 # https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb
 code --install-extension vadimcn.vscode-lldb
+
+# windowsのみ
+# https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl
+code --install-extension ms-vscode-remote.remote-wsl
 
 # brew install fish
 #   sudo vim /etc/shells
