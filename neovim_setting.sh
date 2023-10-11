@@ -11,4 +11,8 @@ ln -snfv ${HOME}/dotfile/.zsh_func ${HOME}/.zsh_func
 ln -snfv ${HOME}/dotfile/.asdfrc ${HOME}/.asdfrc
 mv ~/Library/Application\ Support/Code/User/settings.json ~/Library/Application\ Support/Code/User/settings.json.initfile.bak
 ln -snfv ${HOME}/dotfile/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
+# windowsの場合は%APPDATA%\Code\User\settings.jsonにある
+# "C:\Users\xxx\AppData\Roaming\Code\User\settings.json"
+# lnを利用するとwindowsのvscodeが処理できないので、cpを利用する
+# cp ${HOME}/dotfile/vscode/settings.json /mnt/c/Users/xxx/AppData/Roaming/Code/User/settings.json
 

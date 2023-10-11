@@ -4,8 +4,8 @@
     "FIG_NEW_SESSION": "1"
   },
   "editor.minimap.enabled": false, // 右側の小さすぎてみえないminimapを消す
-
-  "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+  "vscode-neovim.useWSL": true, // wslのみ
+  "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim", 
   "vscode-neovim.neovimInitVimPaths.linux": "~/.config/nvim/vscode_init.lua",
   "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
   "vscode-neovim.neovimInitVimPaths.darwin": "~/.config/nvim/vscode_init.lua",
