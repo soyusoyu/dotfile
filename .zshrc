@@ -5,8 +5,13 @@
 #   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
 
+
 source /usr/local/opt/zinit/zinit.zsh
 source /usr/local/opt/asdf/libexec/asdf.sh
+# wsl
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# source /home/linuxbrew/.linuxbrew/opt/zinit/zinit.zsh
+# source /home/linuxbrew/.linuxbrew/opt/asdf/libexec/asdf.sh
 
 # zshのプラグインの有効化
 zinit light zsh-users/zsh-autosuggestions
@@ -17,6 +22,7 @@ zinit light zdharma/fast-syntax-highlighting
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# 下記PATH設定は、macだとctagsが既存が優先されるので、必要だが、wslだとuniversal-ctagsが認識されるので不要
 export PATH=$PATH:/usr/local/Cellar/universal-ctags/p6.0.20230924.0/bin
 eval "$(starship init zsh)"
 
