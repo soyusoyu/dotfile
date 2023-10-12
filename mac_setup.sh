@@ -6,6 +6,8 @@
 # sudo apt-get install build-essential
 # sudo apt-get update -y
 # sudo apt-get install zsh -y
+# sudo apt-get install zlib1g-dev -y
+# sudo apt-get install -y libssl-dev
 # chsh -s /bin/zsh
 # brew install gcc
 
@@ -15,6 +17,9 @@
 brew install --cask iterm2
 brew install git
 brew install gh
+#  - ssh-keygen
+#  - https://github.com/settings/ssh
+#  - ssh -T git@github.com
 brew install neovim
  #  - ruby-lsp
  #  - typescript-language-server
