@@ -1,5 +1,66 @@
 
 alias nvimf='nvim +Neotree'
+alias gs='git status'
+alias bundle_rspec='bundle exec rspec '
+alias bundle_rubocop_a='bundle exec rubocop -a '
+alias ruby_jit_v='ruby --jit -v '
+alias git_remove_branch="git branch --vv | grep ': gone]' | awk '{print $1}' | xargs git branch -d "
+
+bundle_migrate_d()
+{
+  bundle exec rails db:migrate
+  # bundle exec rails db:migrate --trace
+}
+
+bundle_migrate_t()
+{
+  RAILS_ENV=test bundle exec rails db:migrate
+  # RAILS_ENV=test bundle exec rails db:migrate --trace
+}
+
+_bundle_rollback()
+{
+  bundle exec rails db:rollback STEP=1
+}
+
+bundle_rollback_d()
+{
+  _bundle_rollback
+}
+
+bundle_rollback_t()
+{
+  RAILS_ENV=test _bundle_rollback
+}
+
+bundle_route()
+{
+  bin/rails routes
+}
+
+create_migrate()
+{
+  bin/rails g migration  $1
+}
+
+format_prettier()
+{
+
+  yarn prettier --write  $1
+}
+
+format_git_index()
+{
+  git diff --cached --name-only --diff-filter=AM | grep '\.rb$' | xargs bundle exec rubocop -a
+  git diff --cached --name-only --diff-filter=AM | grep '\.ts\|\.js\|\.tsx$' | xargs yarn prettier --write
+}
+
+git_stash_drop()
+{
+  for i in {$2..$1}; do
+    git stash drop stash@{$i}
+  done
+}
 
 install_ruby ()
 {

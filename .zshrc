@@ -6,12 +6,17 @@
 # fi
 
 
-source /usr/local/opt/zinit/zinit.zsh
-source /usr/local/opt/asdf/libexec/asdf.sh
+# source /usr/local/opt/zinit/zinit.zsh
+# source /usr/local/opt/asdf/libexec/asdf.sh
 # wsl
-# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-# source /home/linuxbrew/.linuxbrew/opt/zinit/zinit.zsh
-# source /home/linuxbrew/.linuxbrew/opt/asdf/libexec/asdf.sh
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+source /home/linuxbrew/.linuxbrew/opt/zinit/zinit.zsh
+source /home/linuxbrew/.linuxbrew/opt/asdf/libexec/asdf.sh
+# mac 用
+# eval "$(/opt/homebrew/bin/brew shellenv)"
+# eval "$(direnv hook zsh)"
+# source /opt/homebrew/opt/zinit/zinit.zsh
+# source /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 # zshのプラグインの有効化
 zinit light zsh-users/zsh-autosuggestions
@@ -28,3 +33,6 @@ eval "$(starship init zsh)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zsh_func ] && source  ~/.zsh_func
+
+#  rustc --version などを実行して rust がインストール済みなら下記は不要
+# export RUBY_CONFIGURE_OPTS="--enable-yjit"
