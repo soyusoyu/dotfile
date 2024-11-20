@@ -62,6 +62,20 @@ git_stash_drop()
   done
 }
 
+git_push_u()
+{
+  current_branch=$(git branch --show-current)
+
+  # ブランチ名が main, master, develop の場合はエラーを出力して終了
+  if [[ "$current_branch" == "main" || "$current_branch" == "master" || "$current_branch" == "develop" ]]; then
+    echo "Error: Pushing to '$current_branch' branch is not allowed."
+    exit 1
+  fi
+
+  # git push -u を実行
+  git push -u
+}
+
 install_ruby ()
 {
   asdf install ruby $(cat .ruby-version)
