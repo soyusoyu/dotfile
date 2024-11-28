@@ -7,7 +7,7 @@
   "vscode-neovim.useWSL": true, // wslのみ
   "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim", 
   "vscode-neovim.neovimInitVimPaths.linux": "~/.config/nvim/vscode_init.lua",
-  "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
+  "vscode-neovim.neovimExecutablePaths.darwin": "/opt/homebrew/bin/nvim",
   "vscode-neovim.neovimInitVimPaths.darwin": "~/.config/nvim/vscode_init.lua",
   "extensions.experimental.affinity": {
     "asvetliakov.vscode-neovim": 1
